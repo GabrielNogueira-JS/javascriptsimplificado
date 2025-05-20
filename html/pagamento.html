@@ -1,1 +1,38 @@
-página de pagamento
+<!-- payment.html -->
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Pagamento PIX</title>
+  <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+  <style>
+    body { font-family: sans-serif; text-align: center; padding: 2rem; }
+    #qrcode { margin: 1rem auto; }
+  </style>
+</head>
+<body>
+  <h1>Pagamento PIX – Pedido #<span id="pedido-id"></span></h1>
+  <p>Estabelecimento: Ninja Doce LTDA<br>CNPJ: 12.345.678/0001‑99</p>
+  <p><strong>Valor: R$ <span id="valor"></span></strong></p>
+  <div id="qrcode"></div>
+  <script>
+    // 1. Captura params
+    const params = new URLSearchParams(location.search);
+    const pedidoId = params.get('order') || '00';
+    const total    = params.get('total') || '0.00';
+    document.getElementById('pedido-id').textContent = pedidoId;
+    document.getElementById('valor').textContent     = total;
+
+    // 2. Monta payload PIX (padrão BRCode)
+    const payloadPIX = 
+      `00020126580014BR.GOV.BCB.PIX0114+551199999999520400005303986540${total.replace('.', '')}` +
+      `5802BR5925Ninja Doce LTDA6008SAO PAULO62070503***6304`; 
+    // OBS: ajuste os campos conforme seus dados reais
+
+    // 3. Gera QR Code
+    QRCode.toCanvas(document.getElementById('qrcode'), payloadPIX, { width: 256 }, function (error) {
+      if (error) console.error(error);
+    });
+  </script>
+</body>
+</html>
