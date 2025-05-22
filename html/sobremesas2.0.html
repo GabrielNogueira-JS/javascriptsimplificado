@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contador de Sobremesas</title>
+  <link rel="stylesheet" href="../sobremesas2.0.css/2.0sobremesas.css" />
+</head>
+<body>
+  <header>
+    <div class="borda">🍡 Cardápio Shinobi 🍡 - Doces Ninja</div>
+  </header>
+
+  <main class="layout">
+    <div class="container">
+      <h2>Um Bom Ninja Precisa Adoçar Sua Amargura...</h2>
+
+      <section id="menu-container">
+        <div id="menu" aria-label="Lista de sobremesas disponíveis"></div>
+        <div id="detail-view" class="hidden" aria-live="polite"></div>
+      </section>
+
+      <section class="footer-box">
+        <button id="confirmar-pedido" type="button">Confirmando Pedido</button>
+      </section>
+    </div>
+  </main>
+
+  <div id="summary-view" class="hidden" role="dialog" aria-modal="true">
+    <div class="box summary">
+      <button class="close-hint" id="close-summary" aria-label="Fechar Resumo do pedido">❌</button>
+     
+      <h2>Resumo do Pedido</h2>
+      <ul id="lista-pedido"></ul>
+      <p><strong>Total:</strong> R$ <span id="total-pedido">0.00</span></p>
+     <button class="botao-pedido" id="botao-finalizar" type="button">Finalizar Pedido</button>
+    </div>
+  </div>
+
+  <footer>
+    <button id="return-button" onclick="window.location.href='index2.0.html'" type="button">
+      Retornar à Página Inicial
+    </button>
+  </footer>
+
+  <script src="../js/sobremesas2.0.js"></script>
+</body>
+</html>

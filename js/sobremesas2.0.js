@@ -204,15 +204,14 @@ document.addEventListener('DOMContentLoaded', () => {
   closeSummaryBtn.onclick = () => summaryView.classList.add('hidden');
 
   // Finalizar pedido: imprime no console
-  finalizeBtn.onclick = () => {
-    console.log('Pedido finalizado:', orderItems);
-    alert('Pedido finalizado! Confira no console.');
-  };
+  
+   
+  
 });
-document.getElementById('confirmar-pedido')
-  .addEventListener('click', () => {
-    const total = parseFloat(document.getElementById('total-pedido').textContent);
-    const pedidoId = String(Math.floor(Math.random() * 900) + 100); // ex: 123
-    window.location.href = `payment.html?order=${pedidoId}&total=${total.toFixed(2)}`;
-  });
+document.getElementById('botao-finalizar').onclick = () => {
+  const total = parseFloat(document.getElementById('total-pedido').textContent);
+  const pedidoId = String(Math.floor(Math.random() * 900) + 100); // ex: 123
+  window.location.href = `pagamento.html?order=${pedidoId}&total=${total.toFixed(2)}`;
+};
+
 
