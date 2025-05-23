@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-  // Elementos principais da página
+  
   const menuContainer   = document.getElementById('menu');
   const detailView      = document.getElementById('detail-view');
   const summaryView     = document.getElementById('summary-view');
@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const closeSummaryBtn = document.getElementById('close-summary');
   const finalizeBtn     = document.getElementById('botao-finalizar');
 
-  // Array que guarda cada item adicionado
+  
   const orderItems = [];
 
   const menu = [
@@ -90,7 +90,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   ];
 
-  // Renderiza cards do menu
   menu.forEach((item) => {
     const card = document.createElement('div');
     card.classList.add('card');
@@ -106,12 +105,12 @@ document.addEventListener('DOMContentLoaded', () => {
       </div>
     `;
 
-    // Ao clicar no card, abre o detalhe
+    
     card.addEventListener('click', () => showDetail(item));
     menuContainer.appendChild(card);
   });
 
-  // Abre a modal de detalhe de item
+ 
   function showDetail(item) {
     detailView.innerHTML = `
       <div class="box">
@@ -134,7 +133,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('remove-item').onclick = () => modifyOrder(item, 'remove');
   }
 
-  // Adiciona ou remove do pedido
+  
   function modifyOrder(item, action) {
     const obs = document.getElementById('obs-detail').value.trim() || item.observacao;
     if (action === 'add') orderItems.push({ ...item, obs });
@@ -145,7 +144,7 @@ document.addEventListener('DOMContentLoaded', () => {
     detailView.classList.add('hidden');
   }
 
-  // Agrupa itens iguais e retorna array
+  
   function groupItems() {
     const map = {};
     orderItems.forEach(i => {
@@ -156,7 +155,6 @@ document.addEventListener('DOMContentLoaded', () => {
     return Object.values(map);
   }
 
-  // Monta e exibe o resumo do pedido
   function renderSummary() {
     const listEl = document.getElementById('lista-pedido');
     const totalEl = document.getElementById('total-pedido');
@@ -179,7 +177,7 @@ document.addEventListener('DOMContentLoaded', () => {
     totalEl.textContent = total.toFixed(2);
   }
 
-  // Delegação de eventos para os botões de + e - no resumo
+  
   document.getElementById('lista-pedido').addEventListener('click', e => {
     if (e.target.tagName !== 'BUTTON') return;
     const { action, index } = e.target.dataset;
@@ -194,24 +192,24 @@ document.addEventListener('DOMContentLoaded', () => {
     renderSummary();
   });
 
-  // Abre modal de resumo
+
   confirmBtn.onclick = () => {
     renderSummary();
     summaryView.classList.remove('hidden');
   };
 
-  // Fecha modal de resumo
+
   closeSummaryBtn.onclick = () => summaryView.classList.add('hidden');
 
-  // Finalizar pedido: imprime no console
-  
-   
-  
 });
 document.getElementById('botao-finalizar').onclick = () => {
   const total = parseFloat(document.getElementById('total-pedido').textContent);
   const pedidoId = String(Math.floor(Math.random() * 900) + 100); // ex: 123
-  window.location.href = `pagamento.html?order=${pedidoId}&total=${total.toFixed(2)}`;
+  if (total === 0) {
+    alert ('Adicione um chackra ou sucumba!');
+  }else{
+     window.location.href = `pagamento.html?order=${pedidoId}&total=${total.toFixed(2)}`;
+  }
 };
 
 
