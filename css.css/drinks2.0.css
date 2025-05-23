@@ -1,0 +1,440 @@
+/* ===== Reset & Base ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+html, body {
+  height: 100vh;
+  font-family: 'Bree Serif', serif;
+  background: linear-gradient(to right, #3a7bd5, #3a6073);
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ===== Header & Footer ===== */
+header, footer {
+  width: 100%;
+  background-color: #1a2e4f;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+header {
+  height: 80px;
+  padding: 20px 0;
+}
+footer {
+  height: 80px;
+  font-size: 0.9rem;
+  padding: 20px 0;
+}
+header .borda {
+  background-color: #4b6cb7;
+  padding: 12px 24px;
+  color: #fff;
+  border-radius: 10px;
+  font-size: 1.3rem;
+  font-weight: bold;
+}
+
+/* ===== Main Layout ===== */
+.layout {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 20px;
+}
+
+/* ===== Container ===== */
+.container {
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 5px solid #4b6cb7;
+  border-radius: 16px;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.5);
+  width: 90%;
+  max-width: 800px;
+  padding: 30px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.container h2 {
+  color: #a1c4fd;
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+/* ===== Cards ===== */
+.card {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  background: rgba(255,255,255,0.15);
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+  padding: 12px;
+  margin-bottom: 16px;
+  width: 100%;
+}
+.card-left {
+  flex: 1;
+  padding-right: 10px;
+}
+.card-right img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+/* ===== Textos do card ===== */
+.item-name {
+  font-size: 1.1rem;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+.desc {
+  color: #ddd;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+.desc.expandida {
+  -webkit-line-clamp: unset;
+  max-height: 500px;
+  background-color: rgba(255,255,255,0.1);
+  padding: 10px;
+}
+.desc:hover {
+  color: #9ec2e9;
+  text-decoration: underline;
+}
+
+/* ===== Observações ===== */
+.observacao {
+  font-size: 0.85rem;
+  color: #fff;
+  background-color: rgba(0,0,0,0.3);
+  margin: 8px 0;
+  padding: 4px 8px;
+  border-radius: 6px;
+}
+
+/* ===== Preço ===== */
+.price {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: #93affc;
+}
+
+/* ===== Botões de +/- ===== */
+.buttons {
+  position: relative;
+  top: 10px;
+  right: 10px;
+  display: flex;
+  gap: 5px;
+  background-color: rgba(0,0,0,0.3);
+  padding: 4px;
+  border-radius: 6px;
+}
+button.increment, button.decrement {
+  background-color: #fce356;
+  color: #1a2e4f;
+  border: none;
+  padding: 4px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+}
+button.increment:hover, button.decrement:hover {
+  background-color: #e0a800;
+}
+
+/* ===== Footer Box ===== */
+.footer-box {
+  margin-top: 30px;
+  text-align: center;
+  width: 100%;
+  background-color: rgba(0,0,0,0.3);
+  border-radius: 20px;
+  padding: 20px;
+  border: 2px solid #4b6cb7;
+}
+.footer-box button {
+  background: linear-gradient(135deg, #6a82fb, #fc5c7d);
+  border: none;
+  border-radius: 8px;
+  padding: 10px 20px;
+  font-size: 1.2rem;
+  color: #fff;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+.footer-box button:hover {
+  transform: scale(1.05);
+}
+
+/* ===== Detalhe (Modal) ===== */
+#detail-view {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  background: rgba(0,0,0,0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  z-index: 100;
+}
+#detail-view.hidden { display: none; }
+#detail-view .box {
+  background: #1a2e4f;
+  color: #fff;
+  border-radius: 12px;
+  max-width: 500px; width: 100%;
+  padding: 20px;
+  position: relative;
+}
+#detail-view .close-detail {
+  position: relative;
+  top: 10px; right: 10px;
+  background: none; border: none;
+  font-size: 1.2rem; cursor: pointer;
+}
+#detail-view img {
+  width: 100%; height: auto;
+  border-radius: 8px;
+  margin: 12px 0;
+}
+#detail-view .actions button {
+  width: 48%;
+  margin-top: 12px;
+}
+
+/* ===== Resumo (Modal) ===== */
+#summary-view {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  background: rgba(0,0,0,0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 200;
+}
+#summary-view.hidden { display: none; }
+#summary-view .box {
+  background: rgba(26,46,79,0.95);
+  color: #fff;
+  padding: 2rem;
+  border-radius: 10px;
+  width: 90%;
+  max-width: 400px;
+  text-align: center;
+  position: relative;
+}
+#summary-view .close-hint {
+  position: relative; top: 15px; right: 15px;
+  background: none; border: none;
+  font-size: 1.2rem; cursor: pointer;
+}
+#lista-pedido { list-style: none; padding: 0; margin: 1rem 0; }
+#lista-pedido li { margin: 0.5rem 0; }
+
+/* ===== Botão Retornar ===== */
+#return-button {
+  background-color: #0ff8c6;
+  color: #003333; /* Texto mais escuro pra dar contraste */
+  font-weight: 700;
+  border: none;
+  border-radius: 12px;
+  padding: 12px 28px;
+  font-size: 1.1rem;
+  margin: 12px 0;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(15, 248, 198, 0.6);
+  transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+}
+
+#return-button:hover {
+  background-color: #00d3a9;
+  color: #fff;
+  box-shadow: 0 6px 20px rgba(0, 211, 169, 0.8);
+  transform: translateY(-3px);
+}
+
+#return-button:active {
+  transform: translateY(0);
+  box-shadow: 0 3px 8px rgba(0, 211, 169, 0.5);
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #111;
+  color: white;
+  margin: 0;
+  padding: 20px;
+}
+
+.chat-container {
+  max-width: 600px;
+  margin: 0 auto;
+  background-color: #222;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.box-itens {
+  background-color: white;
+  color: black;
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+button {
+  background-color: #444;
+  color: white;
+  border: none;
+  padding: 12px;
+  margin: 8px 0;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: 100%;
+  font-size: 16px;
+  box-sizing: border-box;
+}
+
+button:hover {
+  background-color: #666;
+}
+
+.mensagem {
+  margin: 10px 0;
+}
+body {
+  font-family: 'Bree Serif', serif;
+  background: linear-gradient(to right, #3a7bd5, #3a6073);
+  color: white;
+  margin: 0;
+  padding: 20px;
+}
+
+.chat-container {
+  max-width: 600px;
+  margin: 0 auto;
+  background-color: rgba(255, 255, 255, 0.05);
+  padding: 20px;
+  border-radius: 16px;
+  border: 2px solid #4b6cb7;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+}
+
+.box-itens {
+  background-color: #000;
+  color: #fff;
+  padding: 15px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #4b6cb7;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}
+
+.item-name {
+  font-size: 1.1rem;
+  font-weight: bold;
+  margin-bottom: 6px;
+  color: #fff;
+}
+
+.desc {
+  color: #ccc;
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+
+button {
+  background: linear-gradient(135deg, #1a2e4f, #4b6cb7);
+  color: #fff;
+  border: none;
+  padding: 12px;
+  margin: 10px 0;
+  border-radius: 8px;
+  cursor: pointer;
+  width: 100%;
+  font-size: 16px;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+button:hover {
+  background: linear-gradient(135deg, #3a6073, #6a82fb);
+  transform: scale(1.02);
+}
+
+.mensagem {
+  margin: 10px 0;
+  color: #e0e0e0;
+}
+#lista-pedido li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0.5rem 0;
+  gap: 10px;
+}
+
+.resumo-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.resumo-buttons {
+  display: flex;
+  gap: 4px;
+}
+
+.resumo-buttons button {
+  background-color: #fc5c7d;
+  color: #fff;
+  border: none;
+  padding: 2px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 14px;
+}
+.resumo-buttons button:hover {
+  background-color: #ff2e63;
+}
+.hide {
+  display: none !important;
+}
+#summary-view .box {
+  position: relative;
+  padding-top: 2rem;
+}
+
+#summary-view .close-hint {
+  position: relative;
+  top: 30px;
+  right: 30px;
+  background: none;
+  border: none;
+  font-size: 1.4rem;
+  color: #fff;
+  cursor: pointer;
+}
