@@ -1,0 +1,442 @@
+/* ===== Reset & Base ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+html, body {
+  height: 100vh;
+  font-family: 'Bree Serif', serif;
+  background-color: #fd4e4e;
+  color: #333;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ===== Header & Footer ===== */
+header, footer {
+  width: 100%;
+  background-color: #D2B48C;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+header {
+  height: 80px;
+  padding: 25px 0;
+}
+footer {
+  height: 80px;
+  font-size: 0.9rem;
+  padding: 25px 0;
+}
+header .borda {
+  background-color: #fda31c;
+  padding: 12px 24px;
+  color: #fff;
+  border-radius: 10px;
+  font-size: 1.3rem;
+  font-weight: bold;
+}
+
+/* ===== Main Layout ===== */
+.layout {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 20px 0;
+}
+
+/* ===== Container ===== */
+.container {
+  background-color: #fff;
+  border: 5px solid #fc1d1d;
+  border-radius: 16px;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+  width: 90%;
+  max-width: 800px;
+  padding: 30px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.container h2 {
+  color: #f7a63e;
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+/* ===== Desserts Grid ===== */
+.desserts-container {
+  display: flex;
+  width: 100%;
+  gap: 30px;
+}
+.left-column, .right-column {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+}
+
+/* ===== Card ===== */
+.card-left {
+  flex: 1;
+  padding-right: 10px;
+}
+.card-right img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 6px;
+}
+.card {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  background: #fefefe;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(41, 41, 41, 0.1);
+  padding: 12px;
+  margin-bottom: 16px;
+  width: 100%;
+}
+
+/* ===== Textos do card ===== */
+.item-name {
+  font-size: 1.1rem;
+  font-weight: bold;
+  margin-bottom: 8px;
+  color: #111;
+}
+.desc {
+  color: #444;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.desc.expandida {
+  -webkit-line-clamp: unset;
+  overflow: auto;
+  max-height: 500px;
+  background-color: rgba(255, 255, 255, 0.9);
+  padding: 10px;
+  transition: max-height 0.3s ease-in-out;
+}
+.desc:hover {
+  color: #9ec2e9;
+  text-decoration: underline;
+}
+
+/* ===== Observação ===== */
+.observacao {
+  font-size: 0.85rem;
+  color: #000;
+  background-color: #fcf5f5;
+  margin-bottom: 8px;
+  padding: 4px 8px;
+  border-radius: 6px;
+}
+
+.obs-detail {
+  font-size: 0.9rem;
+  color: #ff5353;
+  background-color: #dbdbdb;
+  padding: 8px;
+  border-radius: 6px;
+  margin-top: 10px;
+}
+/* ===== Preço ===== */
+.price {
+  font-size: 1.05rem;
+  color: #444;
+  font-weight: 600;
+}
+
+/* ===== Serve para (pessoas) ===== */
+.serve-info {
+  font-size: 1rem;
+  color: #777777;
+  font-weight: 500;
+}
+
+/* ===== Botões ===== */
+.buttons {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 5px;
+}
+button.increment, button.decrement {
+  background-color: #e1fd44;
+  color: white;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+button.increment:hover, button.decrement:hover {
+  background-color: #6bfa66;
+}
+button {
+  background: linear-gradient(135deg, #31ebf8, #88dbf5);
+  border: 2px solid #64ff6c;
+  border-radius: 8px;
+  padding: 6px 12px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: white;
+  cursor: pointer;
+  transition: border-color 0.3s ease, transform 0.2s ease, background 0.2s;
+  box-shadow: 0 2px 5px rgb(250, 248, 248);
+}
+button:hover {
+  border-color: #f5b641;
+  background: #faf73c;
+  transform: scale(1.05);
+}
+
+/* ===== Totais ===== */
+.footer-box {
+  margin-top: 30px;
+  text-align: center;
+  width: 100%;
+  background-color: #fab6b6;
+  border-radius: 20px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  border: 2px solid #664bfd;
+}
+.footer-box p {
+  font-size: 1.1rem;
+  color: #292828;
+  margin: 8px 0;
+}
+
+/* ===== Resumo Centralizado Abaixo ===== */
+.resumo-pedido {
+  text-align: center;
+  margin-top: 20px;
+  color: #111;
+  font-size: 1.1rem;
+}
+
+/* ===== Botão Retornar ===== */
+#return-button {
+  background-color: #2c3e50;
+  color: #2c2a2c;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 20px;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-top: 12px;
+  transition: background 0.3s;
+}
+#return-button:hover {
+  background-color: #d6af5cbb;
+}
+
+/* ===== Modal de Detalhes ===== */
+#detail-view {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0,0,0,0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  z-index: 100;
+}
+#detail-view.hidden {
+  display: none;
+}
+#detail-view .box {
+  background: #fff;
+  border-radius: 12px;
+  max-width: 500px;
+  width: 100%;
+  padding: 20px;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+  position: relative;
+}
+#detail-view .close-hint {
+  position: absolute;
+  top: 10px;
+  right: 14px;
+  cursor: pointer;
+  font-size: 1.2rem;
+}
+#detail-view img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin-bottom: 12px;
+}
+#detail-view .actions {
+  display: flex;
+  justify-content: space-between;
+  gap: 4%;
+}
+#detail-view button {
+  margin-top: 12px;
+  width: 48%;
+}
+#detail-view label,
+#detail-view input {
+  display: block;
+  width: 100%;
+  margin: 6px 0;
+}
+
+/* ===== Título Central ===== */
+.text-center {
+  text-align: center;
+  color: #ee99a0;
+  font-size: 1.5rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  position: relative;
+  padding: 20px;
+  text-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+.text-center::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(to right, #ff8c94, #fc908b);
+  border-radius: 2px;
+  z-index: -1;
+}
+.text-center:hover {
+  color: #ff4d88;
+  cursor: pointer;
+  transition: color 0.3s ease-in-out;
+}
+.text-center:active {
+  background-color: rgba(255, 102, 139, 0.1);
+  transition: background-color 0.2s ease-in-out;
+}
+
+/* Centralizar visualmente o resumo do pedido */
+#summary-view {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(14, 14, 14, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+#summary-view .box {
+  background-color: #ffffff;
+  padding: 3rem 2rem 2rem; /* >>> padding-top maior para empurrar o título */
+  border-radius: 10px;
+  width: 90%;
+  max-width: 400px;
+  text-align: center;
+  position: relative;
+}
+#summary-view .close-hint {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  border: none;
+  background: none;
+  z-index: 10;
+}
+
+/* Ajustes extras (se ainda não existirem) */
+#lista-pedido {
+  list-style: none;
+  padding: 0;
+  margin: 1rem 0;
+}
+#lista-pedido li {
+  margin: 0.5rem 0;
+}
+
+/* escondendo modais */
+.hidden {
+  display: none !important;
+}
+
+/* textarea full width */
+#detail-view textarea {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Espaço extra acima do título dentro de qualquer .modal */
+.modal h2,
+.modal .item-title {
+  margin-top: 3rem; /* >>> aumenta para ficar sempre abaixo do btn de fechar */
+}
+
+/* Cards com botões absolutos */
+.card {
+  position: relative;
+}
+.card .buttons {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 10;
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 8px;
+  padding: 4px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+/* Lista de itens simples */
+.lista-itens {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 20px;
+}
+.item {
+  display: flex;
+  flex-direction: column;
+  background-color: #f5f5f5;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 10px;
+  position: relative;
+}
+.btn-remover {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: #ff4d4d;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 3px;
+  cursor: pointer;
+}
+.item-nome {
+  margin-top: 30px; /* garante que fique abaixo do botão de remover */
+  font-weight: bold;
+}
