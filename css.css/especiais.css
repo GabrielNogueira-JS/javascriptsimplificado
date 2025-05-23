@@ -188,7 +188,7 @@ button.increment:hover, button.decrement:hover {
   background-color: #6bfa66;
 }
 button {
-  background: linear-gradient(135deg, #31ebf8, #88dbf5);
+  background: linear-gradient(135deg, #bbcf61, #f3ac83);
   border: 2px solid #64ff6c;
   border-radius: 8px;
   padding: 6px 12px;
@@ -214,7 +214,7 @@ button:hover {
   border-radius: 20px;
   padding: 20px;
   box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-  border: 2px solid #664bfd;
+  border: 2px solid #88aa2b;
 }
 .footer-box p {
   font-size: 1.1rem;
