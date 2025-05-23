@@ -1,0 +1,114 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  /* ↓ tipografia trocada para Poppins */
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Google Font */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+/* — CORES GERAIS — */
+body {
+  background-color: #fff8f4;
+  color: #333;
+}
+
+/* — CABEÇALHO — */
+header {
+  background-color: #C73026;   /* antes #e63946 */
+  color: white;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  gap: 1rem;
+}
+
+nav a {
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+/* — HERO — */
+.hero {
+  height: 320px;  /* antes 400px */
+  background: url('../imagens/heroburguer.jpeg') center/cover no-repeat; /* coloque sua foto aqui */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.hero-content h1 {
+  color: white;
+  font-size: 2.5rem;
+  text-shadow: 2px 2px 5px #000;
+}
+
+
+
+/* — DESTAQUES — */
+.destaques {
+  background: #F6E9DC;         /* fundo bege adicionado */
+  padding: 2.5rem 0;
+  text-align: center;
+}
+
+.cards {
+  display: flex;
+  justify-content: center;
+  gap: 2.5rem;                  /* antes 2rem */
+  margin-top: 2rem;
+  flex-wrap: wrap;
+}
+
+.card {
+  background: white;
+  padding: 1rem;
+  border-radius: 14px;          /* antes 10px */
+  box-shadow: 0 4px 8px rgba(0,0,0,0.08); /* sombra suavizada */
+  width: 180px;                 /* antes 200px */
+}
+
+.card img {
+  width: 72px;                  /* antes 100px */
+  height: 72px;                 /* antes 100px */
+  object-fit: cover;
+  margin-bottom: 1rem;
+}
+
+/* — SOBRE NÓS — */
+.sobre {
+  background-color: #ffe8d6;
+  padding: 2rem;
+  text-align: center;
+}
+
+/* — RODAPÉ — */
+footer {
+  background-color: #222;
+  color: white;
+  text-align: center;
+  padding: 1.5rem;
+}
+/* Links do rodapé herdam a cor branca e não têm sublinhado */
+footer a,
+footer a:visited,
+footer a:hover,
+footer a:active {
+  color: inherit;          /* fica branco (ou a cor do footer) */
+  text-decoration: none;   /* remove qualquer linha */
+}
