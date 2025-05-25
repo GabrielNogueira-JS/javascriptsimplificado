@@ -7,8 +7,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const closeSummaryBtn = document.getElementById('close-summary');
   const finalizeBtn     = document.getElementById('botao-finalizar');
 
-  
-  const orderItems = [];
+  // Carregar pedido salvo ou iniciar vazio
+  let orderItems = JSON.parse(localStorage.getItem('pedido')) || [];
 
   const menu = [
     {
@@ -104,13 +104,10 @@ document.addEventListener('DOMContentLoaded', () => {
         <img src="${item.imagem}" alt="${item.nome}">
       </div>
     `;
-
-    
     card.addEventListener('click', () => showDetail(item));
     menuContainer.appendChild(card);
   });
 
- 
   function showDetail(item) {
     detailView.innerHTML = `
       <div class="box">
@@ -133,7 +130,6 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('remove-item').onclick = () => modifyOrder(item, 'remove');
   }
 
-  
   function modifyOrder(item, action) {
     const obs = document.getElementById('obs-detail').value.trim() || item.observacao;
     if (action === 'add') orderItems.push({ ...item, obs });
@@ -142,9 +138,9 @@ document.addEventListener('DOMContentLoaded', () => {
       if (idx > -1) orderItems.splice(idx, 1);
     }
     detailView.classList.add('hidden');
+    renderSummary();        // atualiza resumo sempre que alterar pedido
   }
 
-  
   function groupItems() {
     const map = {};
     orderItems.forEach(i => {
@@ -175,9 +171,11 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     totalEl.textContent = total.toFixed(2);
+
+    // Salvar pedido no localStorage em JSON
+    localStorage.setItem('pedido', JSON.stringify(orderItems));
   }
 
-  
   document.getElementById('lista-pedido').addEventListener('click', e => {
     if (e.target.tagName !== 'BUTTON') return;
     const { action, index } = e.target.dataset;
@@ -192,24 +190,24 @@ document.addEventListener('DOMContentLoaded', () => {
     renderSummary();
   });
 
-
   confirmBtn.onclick = () => {
     renderSummary();
     summaryView.classList.remove('hidden');
   };
 
-
   closeSummaryBtn.onclick = () => summaryView.classList.add('hidden');
 
+  // Renderizar pedido salvo ao carregar página
+  renderSummary();
+
 });
+
 document.getElementById('botao-finalizar').onclick = () => {
   const total = parseFloat(document.getElementById('total-pedido').textContent);
   const pedidoId = String(Math.floor(Math.random() * 900) + 100); // ex: 123
   if (total === 0) {
-    alert ('Adicione um chackra ou sucumba!');
-  }else{
-     window.location.href = `pagamento.html?order=${pedidoId}&total=${total.toFixed(2)}`;
+    alert('Adicione um chakra ou sucumba!');
+  } else {
+    window.location.href = `pagamento.html?order=${pedidoId}&total=${total.toFixed(2)}`;
   }
 };
-
-

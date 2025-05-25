@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const finalizeBtn     = document.getElementById('botao-finalizar');
 
   // Array que guarda cada item adicionado
-  const orderItems = [];
+   let orderItems = JSON.parse(localStorage.getItem('pedido')) || [];
 
   const drinks = [
     { nome: "🍍 Piña Colada", descricao: "Rum, leite de coco e suco de abacaxi gelado.", observacao: "👤 Serve uma pessoa.", preco: 20.00, imagem: "../imagens/pinacolada.png.png" },
@@ -52,7 +52,7 @@ document.addEventListener('DOMContentLoaded', () => {
         <img src="${item.imagem}" alt="${item.nome}">
         <p>${item.descricao}</p>
         <p><strong>R$ ${item.preco.toFixed(2)}</strong></p>
-        <textarea id="obs-detail" placeholder="Adicionais ou remoções"></textarea>
+        <textarea id="obs-detail" rows="5" placeholder="Adicionais ou remoções"></textarea>
         <div>
           <button id="add-item">Adicionar</button>
           <button id="remove-item">Remover</button>
@@ -60,7 +60,7 @@ document.addEventListener('DOMContentLoaded', () => {
       </div>
     `;
     detailView.classList.remove('hidden');
-
+    
     document.getElementById('close-detail').onclick = () => detailView.classList.add('hidden');
     document.getElementById('add-item').onclick = () => modifyOrder(item, 'add');
     document.getElementById('remove-item').onclick = () => modifyOrder(item, 'remove');
@@ -75,6 +75,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (idx > -1) orderItems.splice(idx, 1);
     }
     detailView.classList.add('hidden');
+    renderSummary();
   }
 
   // Agrupa itens iguais e retorna array
@@ -109,11 +110,12 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     totalEl.textContent = total.toFixed(2);
+     localStorage.setItem('pedido', JSON.stringify(orderItems));
   }
 
   // Delegação de eventos para os botões de + e - no resumo
   document.getElementById('lista-pedido').addEventListener('click', e => {
-    if (e.target.tagnome !== 'BUTTON') return;
+    if (e.target.tagName !== 'BUTTON') return;
     const { action, index } = e.target.dataset;
     const items = groupItems();
     const item = items[index];
@@ -134,15 +136,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Fecha modal de resumo
   closeSummaryBtn.onclick = () => summaryView.classList.add('hidden');
+  renderSummary();
 
   // Finalizar pedido: imprime no console
-
-  
-});
-document.getElementById('finalizar-pedido')
-  .addEventListener('click', () => {
+  document.getElementById('finalizar-pedido').addEventListener('click', () => {
     const total = parseFloat(document.getElementById('total-pedido').textContent);
-    const pedidoId = String(Math.floor(Math.random() * 900) + 100); // ex: 123
+    const pedidoId = String(Math.floor(Math.random() * 900) + 120); // ex: 123
     window.location.href = `pagamento.html?order=${pedidoId}&total=${total.toFixed(2)}`;
+  });
   });
 

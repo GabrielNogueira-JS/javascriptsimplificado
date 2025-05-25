@@ -7,34 +7,18 @@ document.addEventListener('DOMContentLoaded', () => {
   const closeSummaryBtn = document.getElementById('close-summary');
   const finalizeBtn     = document.getElementById('botao-finalizar');
 
-  // Array que guarda cada item adicionado
-  const orderItems = [];
+    let orderItems = JSON.parse(localStorage.getItem('pedido')) || [];
+ 
 
   const cardapio = [
-    { name: "🍜 Lámen Ichiraku - Ramen do Naruto", ingredients: ["Macarrão", "Caldo de Porco", "Ovo", "Cebolinha", "Chashu"], price: 39.90, imagem: "../imagens/ramen.jpeg" },
-    { name: "🍙 Bola de Arroz Onigiri - Missão Rápida", ingredients: ["Arroz Japonês", "Alga Nori", "Recheio Variado"], price: 9.50, imagem: "../imagens/onigiri.jpeg" },
-    { name: "🍙 Onigiri da Hinata", ingredients: ["Arroz Japonês", "Alga Nori", "Salmão Grelhado", "Gergelim"], price: 17.50, imagem: "../imagens/oniguiri.jpeg" },
-    { name: "🍢 Dango - Doce Favorito dos Ninjas", ingredients: ["Massa de Arroz", "Molho de Soja Doce"], price: 12.50, imagem: "../imagens/dango.jpeg" },
-    { name: "🍛 Curry Japonês - Chakra Picante", ingredients: ["Carne", "Cenoura", "Batata", "Arroz", "Molho Curry"], price: 34.00, imagem: "../imagens/curry.jpg" },
-    { name: "🐙 Takoyaki - Jutsu do Polvo Flamejante", ingredients: ["Massa", "Polvo", "Molho Takoyaki", "Cebolinha", "Katsuobushi"], price: 29.90, imagem: "../imagens/takoyaki.jpeg" },
-    { name: "🦐 Tempurá - Defesa Perfeita do Byakugan", ingredients: ["Camarão", "Legumes", "Massa Crocante"], price: 28.50, imagem: "../imagens/tempura.jpeg" },
-    { name: "🍢 Churrasquinho Yakitori - Espetos de Chakra", ingredients: ["Frango", "Molho Tarê"], price: 8.90, imagem: "../imagens/frng.jpeg" },
-    { name: "🥩 Churrasquinho Uchiha - Espetos do Sasuke", ingredients: ["Fraudinha", "Molho Shoyu", "Maionese de Alho"], price: 12.90, imagem: "../imagens/espeto.jpg" },
-    { name: "🐟 Sashimi - Técnica do Estilo Água", ingredients: ["Peixe Cru", "Shoyu", "Gengibre"], price: 32.00, imagem: "../imagens/sashimi.jpeg" },
-    { name: "🍗 Karaage (Frango Frito Japonês) - Golpe Rápido de Taijutsu", ingredients: ["Frango", "Molho de Soja", "Gengibre", "Farinha de Batata"], price: 25.00, imagem: "../imagens/karage.jpeg" },
-    { name: "🥞 Okonomiyaki - Jutsu Secreto de Osaka", ingredients: ["Massa", "Repolho", "Carne de Porco", "Molho Okonomiyaki"], price: 27.90, imagem: "../imagens/okono.jpeg" },
-    { name: "🌱 Edamame (Soja Cozida) - Chakra Verde", ingredients: ["Soja", "Sal Grosso"], price: 10.75, imagem: "../imagens/edamame.jpeg" },
-    { name: "🍟 Batata Frita - Jutsu das Lâminas Douradas", ingredients: ["Batata (500 gramas)", "Sal"], price: 25.50, imagem: "../imagens/btt.jpeg" },
-    { name: "🍟 Batata Frita com Cheddar e Bacon- Jutsu das Lâminas Douradas Cremosas", ingredients: ["Batata (600 gramas)", "Sal"], price: 29.90, imagem: "../imagens/bttcb.jpg" },
-    { name: "💧 Água Mineral - Fonte de Energia Natural", ingredients: ["Água Mineral (500ml)"], price: 5, imagem: "../imagens/agua.jpeg" },
-    { name: "💦 Água com Gás - Técnica Borbulhante", ingredients: ["Água Gasificada (500ml)"], price: 6, imagem: "../imagens/aguacomgas.jpeg" },
-    { name: "🥤 Coca-Cola - Chakra Explosivo", ingredients: ["Refrigerante de Cola (600ml Tradicional ou zero)"], price: 10, imagem: "../imagens/coca.jpeg" },
-    { name: "🍊 Fanta Laranja - Modo Kurama", ingredients: ["Refrigerante de Laranja (600ml) Tradicional ou zero"], price: 7, imagem: "../imagens/fantalaranja.jpeg" },
-    { name: "🍇 Fanta Uva - Genjutsu Roxo", ingredients: ["Refrigerante de Uva (600ml) Tradicional ou zero"], price: 7, imagem: "../imagens/fantauva.jpeg" },
-    { name: "🌿 Kuat - Força do País do Chá", ingredients: ["Refrigerante de Guaraná (600ml) Tradicional ou zero"], price: 5, imagem: "../imagens/kuat.jpeg" },
-    { name: "🍹 Suco de Laranja - Jutsu da Vitalidade", ingredients: ["Laranja", "Açúcar", "Água"], price: 8, imagem: "../imagens/laranja.jpeg" },
-    { name: "🍇 Suco de Uva - Uvas da floresta Shinobi", ingredients: ["Uva", "Açúcar", "Água"], price: 8, imagem: "../imagens/uva.jpeg" },
-    { name: "🍷 Vinho Tinto (1 Litro)- Sangue de Shinobi", ingredients: ["Uvas Cabernet", "Água", "Açucar Da Uva"], price: 49.90, imagem: "../imagens/vinho.jpeg" }
+    { name: "🥓X-Bacon",     ingredients: ["Pão", "Bacon", "Queijo", "Hambúrguer", "Maionese"], price: 15.90, imagem: "../imagens/bacon.png" },
+    { name: "🥒X-Salada",    ingredients: ["Pão", "Queijo", "Hambúrguer", "Alface", "Tomate"], price: 13.50, imagem: "../imagens/salada.png" },
+    { name: "🍱X-Tudo",      ingredients: ["Pão", "Hambúrguer", "Queijo", "Presunto", "Bacon", "Ovo", "Alface", "Tomate"], price: 18.00, imagem: "../imagens/xtudo.png" },
+    { name: "🐔X-Frango",    ingredients: ["Pão", "Frango desfiado", "Queijo", "Alface", "Tomate"], price: 14.50, imagem: "../imagens/frango.png" },
+    { name: "🫑X-Calabresa", ingredients: ["Pão", "Calabresa", "Queijo", "Tomate"], price: 16.00, imagem: "../imagens/calabresa.png" },
+    { name: "🍳X-Egg",       ingredients: ["Pão", "Ovo", "Queijo", "Hambúrguer"], price: 14.00, imagem: "../imagens/egg.png" },
+    { name: "🍖X-Picanha",   ingredients: ["Pão", "Picanha", "Queijo", "Alface", "Tomate"], price: 19.90, imagem: "../imagens/picanha.png" },
+    { name: "🌱X-Vegano",    ingredients: ["Pão integral", "Hambúrguer de soja", "Queijo vegano", "Alface", "Tomate"], price: 17.50, imagem: "../imagens/vegano.png" },
 ];
 
   // Renderiza cards do menu
@@ -64,9 +48,9 @@ document.addEventListener('DOMContentLoaded', () => {
         <button id="close-detail">❌</button>
         <h2>${item.name}</h2>
         <img src="${item.imagem}" alt="${item.name}">
-        <p>${item.descricao}</p>
+        <p>${item.ingredients.join(", ")}</p>
         <p><strong>R$ ${item.price.toFixed(2)}</strong></p>
-        <textarea id="obs-detail" placeholder="Adicionais ou remoções"></textarea>
+        <textarea id="obs-detail" rows="5" placeholder="Adicionais ou remoções"></textarea>
         <div>
           <button id="add-item">Adicionar</button>
           <button id="remove-item">Remover</button>
@@ -89,6 +73,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (idx > -1) orderItems.splice(idx, 1);
     }
     detailView.classList.add('hidden');
+     renderSummary();
   }
 
   // Agrupa itens iguais e retorna array
@@ -123,6 +108,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     totalEl.textContent = total.toFixed(2);
+     localStorage.setItem('pedido', JSON.stringify(orderItems));
   }
 
   // Delegação de eventos para os botões de + e - no resumo
@@ -148,15 +134,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Fecha modal de resumo
   closeSummaryBtn.onclick = () => summaryView.classList.add('hidden');
+    renderSummary();
+    console.log("Pedido Carregado:", orderItems);
 
-  // Finalizar pedido: imprime no console
-
-  
 });
 document.getElementById('finalizar-pedido')
   .addEventListener('click', () => {
     const total = parseFloat(document.getElementById('total-pedido').textContent);
-    const pedidoId = String(Math.floor(Math.random() * 900) + 100); // ex: 123
+    const pedidoId = String(Math.floor(Math.random() * 900) + 130); // ex: 123
     window.location.href = `pagamento.html?order=${pedidoId}&total=${total.toFixed(2)}`;
   });
 

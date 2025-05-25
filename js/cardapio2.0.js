@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const finalizeBtn     = document.getElementById('botao-finalizar');
 
   // Array que guarda cada item adicionado
-  const orderItems = [];
+ let orderItems = JSON.parse(localStorage.getItem('pedido')) || [];
 
   const cardapio = [
     { name: "🍜 Lámen Ichiraku - Ramen do Naruto", ingredients: ["Macarrão", "Caldo de Porco", "Ovo", "Cebolinha", "Chashu"], price: 39.90, imagem: "../imagens/ramen.jpeg" },
@@ -64,9 +64,9 @@ document.addEventListener('DOMContentLoaded', () => {
         <button id="close-detail">❌</button>
         <h2>${item.name}</h2>
         <img src="${item.imagem}" alt="${item.name}">
-        <p>${item.descricao}</p>
+        <p>${item.ingredients.join(", ")}</p>
         <p><strong>R$ ${item.price.toFixed(2)}</strong></p>
-        <textarea id="obs-detail" placeholder="Adicionais ou remoções"></textarea>
+        <textarea id="obs-detail" rows="5" placeholder="Adicionais ou remoções"></textarea>
         <div>
           <button id="add-item">Adicionar</button>
           <button id="remove-item">Remover</button>
@@ -89,6 +89,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (idx > -1) orderItems.splice(idx, 1);
     }
     detailView.classList.add('hidden');
+     renderSummary();
   }
 
   // Agrupa itens iguais e retorna array
@@ -123,6 +124,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     totalEl.textContent = total.toFixed(2);
+     localStorage.setItem('pedido', JSON.stringify(orderItems));
   }
 
   // Delegação de eventos para os botões de + e - no resumo
@@ -148,6 +150,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Fecha modal de resumo
   closeSummaryBtn.onclick = () => summaryView.classList.add('hidden');
+  renderSummary();
 
   // Finalizar pedido: imprime no console
   finalizeBtn.onclick = () => {
@@ -158,7 +161,7 @@ document.addEventListener('DOMContentLoaded', () => {
 document.getElementById('finalizar-pedido')
   .addEventListener('click', () => {
     const total = parseFloat(document.getElementById('total-pedido').textContent);
-    const pedidoId = String(Math.floor(Math.random() * 900) + 100); // ex: 123
+    const pedidoId = String(Math.floor(Math.random() * 900) + 110); // ex: 123
     window.location.href = `pagamento.html?order=${pedidoId}&total=${total.toFixed(2)}`;
   });
 
