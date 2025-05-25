@@ -8,28 +8,48 @@
   <style>
     body { font-family: sans-serif; text-align: center; padding: 2rem; }
     #qrcode { margin: 1rem auto; }
+    h1 span { font-weight: bold; }
+    .cliente-info { margin-top: 1rem; font-size: 1.1rem; }
+    .valor { font-size: 1.4rem; font-weight: bold; margin: 1rem 0; }
   </style>
 </head>
 <body>
-  <h1>Pagamento PIX – Pedido #<span id="pedido-id"></span></h1>
+  <h1><span id="nome"></span>, sua comanda é <span id="pedido-id"></span></h1>
+
+  <div class="cliente-info">
+    <p>Telefone: <span id="telefone"></span></p>
+    <p>Endereço: <span id="endereco"></span></p>
+  </div>
+
   <p>Estabelecimento: Ninja Doce LTDA<br>CNPJ: 12.345.678/0001‑99</p>
-  <p><strong>Valor: R$ <span id="valor"></span></strong></p>
+
+  <p class="valor">Valor: R$ <span id="valor"></span></p>
+
   <div id="qrcode"></div>
+
   <script>
-    // 1. Captura params
+    // 1. Captura parâmetros da URL
     const params = new URLSearchParams(location.search);
     const pedidoId = params.get('order') || '00';
-    const total    = params.get('total') || '0.00';
-    document.getElementById('pedido-id').textContent = pedidoId;
-    document.getElementById('valor').textContent     = total;
+    const total = params.get('total') || '0.00';
+    const nome = params.get('nome') || 'Cliente';
+    const telefone = params.get('telefone') || 'Não informado';
+    const endereco = params.get('endereco') || 'Não informado';
 
-    // 2. Monta payload PIX (padrão BRCode)
+    // 2. Preenche os dados na página
+    document.getElementById('pedido-id').textContent = '#' + pedidoId;
+    document.getElementById('valor').textContent = total;
+    document.getElementById('nome').textContent = nome;
+    document.getElementById('telefone').textContent = telefone;
+    document.getElementById('endereco').textContent = endereco;
+
+    // 3. Monta payload PIX (padrão BRCode simplificado)
+    const valorBRCode = total.replace('.', '').padStart(3, '0');
     const payloadPIX = 
-      `00020126580014BR.GOV.BCB.PIX0114+551199999999520400005303986540${total.replace('.', '')}` +
-      `5802BR5925Ninja Doce LTDA6008SAO PAULO62070503***6304`; 
-    // OBS: ajuste os campos conforme seus dados reais
+      `00020126580014BR.GOV.BCB.PIX0114+551199999999520400005303986540${valorBRCode}` +
+      `5802BR5925Ninja Doce LTDA6008SAO PAULO62070503***6304`;
 
-    // 3. Gera QR Code
+    // 4. Gera o QR Code
     QRCode.toCanvas(document.getElementById('qrcode'), payloadPIX, { width: 256 }, function (error) {
       if (error) console.error(error);
     });
