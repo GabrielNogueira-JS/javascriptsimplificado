@@ -8,7 +8,24 @@ document.addEventListener('DOMContentLoaded', () => {
   const finalizeBtn     = document.getElementById('botao-finalizar');
 
   // Array que guarda cada item adicionado
- let orderItems = JSON.parse(localStorage.getItem('pedido')) || [];
+  let orderItems = JSON.parse(localStorage.getItem('pedido')) || [];
+
+  const summaryBox = summaryView.querySelector('.box.summary');
+  summaryBox.insertAdjacentHTML('beforeend', `
+    <div class="cliente-dados" style="margin: 1em 0;">
+      <input id="nome-cliente" type="text" 
+             placeholder="Seu nome" 
+             style="width: 100%; padding: .5em; margin-bottom: .5em;" />
+
+      <textarea id="endereco-cliente" rows="5" 
+                placeholder="Seu endereço" 
+                style="width: 100%; padding: .5em; margin-bottom: .5em;"></textarea>
+
+      <input id="telefone-cliente" type="tel" 
+             placeholder="Seu telefone" 
+             style="width: 100%; padding: .5em;" />
+    </div>
+  `);
 
   const cardapio = [
     { name: "🍜 Lámen Ichiraku - Ramen do Naruto", ingredients: ["Macarrão", "Caldo de Porco", "Ovo", "Cebolinha", "Chashu"], price: 39.90, imagem: "../imagens/ramen.jpeg" },
@@ -35,7 +52,7 @@ document.addEventListener('DOMContentLoaded', () => {
     { name: "🍹 Suco de Laranja - Jutsu da Vitalidade", ingredients: ["Laranja", "Açúcar", "Água"], price: 8, imagem: "../imagens/laranja.jpeg" },
     { name: "🍇 Suco de Uva - Uvas da floresta Shinobi", ingredients: ["Uva", "Açúcar", "Água"], price: 8, imagem: "../imagens/uva.jpeg" },
     { name: "🍷 Vinho Tinto (1 Litro)- Sangue de Shinobi", ingredients: ["Uvas Cabernet", "Água", "Açucar Da Uva"], price: 49.90, imagem: "../imagens/vinho.jpeg" }
-];
+  ];
 
   // Renderiza cards do menu
   cardapio.forEach((item) => {
@@ -89,7 +106,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (idx > -1) orderItems.splice(idx, 1);
     }
     detailView.classList.add('hidden');
-     renderSummary();
+    renderSummary();
   }
 
   // Agrupa itens iguais e retorna array
@@ -123,8 +140,11 @@ document.addEventListener('DOMContentLoaded', () => {
       `;
     });
 
+    if (isNaN(total)) total = 0;
     totalEl.textContent = total.toFixed(2);
-     localStorage.setItem('pedido', JSON.stringify(orderItems));
+
+    // Persistência
+    localStorage.setItem('pedido', JSON.stringify(orderItems));
   }
 
   // Delegação de eventos para os botões de + e - no resumo
@@ -149,19 +169,32 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   // Fecha modal de resumo
-  closeSummaryBtn.onclick = () => summaryView.classList.add('hidden');
-  renderSummary();
+  closeSummaryBtn.onclick = () => {
+    summaryView.classList.add('hidden');
+    renderSummary();
+  };
 
-  // Finalizar pedido: imprime no console
-  finalizeBtn.onclick = () => {
-    console.log('Pedido finalizado:', orderItems);
-    alert('Pedido finalizado! Confira no console.');
+  // Finalizar pedido e redirecionar
+  document.getElementById('finalizar-pedido').onclick = () => {
+    const total          = parseFloat(document.getElementById('total-pedido').textContent) || 0;
+    const pedidoId       = Math.floor(Math.random() * 900) + 100;
+    const nomeCliente    = encodeURIComponent(document.getElementById('nome-cliente').value.trim() || 'Cliente');
+    const endereco       = encodeURIComponent(document.getElementById('endereco-cliente').value.trim());
+    const telefone       = encodeURIComponent(document.getElementById('telefone-cliente').value.trim());
+
+    if (total === 0) {
+      alert('Adicione um chakra ou sucumba!');
+      return;
+    }
+    if (!nomeCliente) {
+      alert('Informe seu nome antes de finalizar.');
+      return;
+    }
+
+    const params = `?order=${pedidoId}&total=${total.toFixed(2)}&nome=${nomeCliente}` +
+                   `&endereco=${endereco}&telefone=${telefone}`;
+
+    window.location.href = `pagamento.html${params}`;
   };
 });
-document.getElementById('finalizar-pedido')
-  .addEventListener('click', () => {
-    const total = parseFloat(document.getElementById('total-pedido').textContent);
-    const pedidoId = String(Math.floor(Math.random() * 900) + 110); // ex: 123
-    window.location.href = `pagamento.html?order=${pedidoId}&total=${total.toFixed(2)}`;
-  });
 
