@@ -7,13 +7,13 @@ document.addEventListener('DOMContentLoaded', () => {
   const finalizeBtn      = document.getElementById('botao-finalizar');
 
   let orderItems = JSON.parse(localStorage.getItem('pedido')) || [];
-
+//adiciona parte de um html numa parte já escrita em cima/dentro do summaryView,modal de itens
   const summaryBox = summaryView.querySelector('.box.summary');
   summaryBox.insertAdjacentHTML('beforeend', `
-    <div class="cliente-dados" style="margin: 1em 0;">
-      <input id="nome-cliente" type="text" placeholder="Seu nome" style="width: 100%; padding: .5em; margin-bottom: .5em;" />
-      <textarea id="endereco-cliente" rows="5" placeholder="Seu endereço" style="width: 100%; padding: .5em; margin-bottom: .5em;"></textarea>
-      <input id="telefone-cliente" type="tel" placeholder="Seu telefone" style="width: 100%; padding: .5em;" />
+    <div class="cliente" style="margin: 1em 0;">
+      <input id="nome" type="text" placeholder="Seu nome" style="width: 100%; padding: .5em; margin-bottom: .5em;" />
+      <textarea id="endereco" rows="5" placeholder="Seu endereço" style="width: 100%; padding: .5em; margin-bottom: .5em;"></textarea>
+      <input id="telefone" type="tel" placeholder="Seu telefone" style="width: 100%; padding: .5em;" />
     </div>
   `);
 
@@ -48,7 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
     card.addEventListener('click', () => showDetail(item));
     menuContainer.appendChild(card);
   });
-
+//.innerhtml: adiciona parte do html no container
   function showDetail(item) {
     detailView.innerHTML = `
       <div class="box">
@@ -65,12 +65,13 @@ document.addEventListener('DOMContentLoaded', () => {
         </div>
       </div>
     `;
-    detailView.classList.remove('hidden');
-    document.getElementById('close-detail').onclick = () => detailView.classList.add('hidden');
-    document.getElementById('add-item').onclick    = () => modifyOrder(item, 'add');
+    detailView.classList.remove('hidden'); //desativa o hidden do css
+    document.getElementById('close-detail').onclick = () => detailView.classList.add('hidden'); //clicar no X fecha o modal
+    document.getElementById('add-item').onclick    = () => modifyOrder(item, 'add'); //modifica,order = lista
     document.getElementById('remove-item').onclick = () => modifyOrder(item, 'remove');
   }
-
+//findIndex procura o item e muda ele de acordo com o botão
+//... pega as caracteristicas anteriores e adiciona/mescla com o novo
   function modifyOrder(item, action) {
     const obs = document.getElementById('obs-detail').value.trim() || item.observacao;
     if (action === 'add') {
@@ -82,6 +83,23 @@ document.addEventListener('DOMContentLoaded', () => {
     detailView.classList.add('hidden');
     renderSummary();
   }
+// Agrupa os itens por nome e observação, contando a quantidade de cada um
+  // e retorna um array com os itens agrupados evitar duplicacao
+  //map literalmente um mapa 
+  //const key = `${i.nome}|${i.obs}`;   junta osdois,o nome e a observacao
+  //map[key] = { ...i, qty: 0 };         se nao existir,cria um novo com quantidade 0
+  //map[key].qty++; essa chave se for um item
+
+
+//const map cria um mapa,  
+// orderItems.forEach(i => {
+     //const key = `${i.nome}|${i.obs}`; = em uma key,chave,tem o item e a desc junta para nao ter repeticao duplicada
+
+     //   if (!map[key]) map[key] = { ...i, qty: 0 };
+     //map[key].qty++;
+   //);   se o item so tem um so,ele junta ou aumenta somente um e depois retorna
+//.values(map);  retorna os valores do mapa,ou seja,os itens agrupados
+
 
   function groupItems() {
     const map = {};
@@ -96,13 +114,14 @@ document.addEventListener('DOMContentLoaded', () => {
   function renderSummary() {
     const listEl  = document.getElementById('lista-pedido');
     const totalEl = document.getElementById('total-pedido');
-    listEl.innerHTML = '';
+    listEl.innerHTML = ''; //comeca vazio
     let total = 0;
 
     groupItems().forEach((item, idx) => {
-      const preco = Number(item.preco) || 0;
+      const preco = Number(item.preco) || 0;  // Garante que  é um número
       const qty = Number(item.qty) || 0;
       total += preco * qty;
+      // Adiciona coisa de html sem tirar oq esta la
       listEl.innerHTML += `
         <li>
           ${item.nome} x${qty} - R$ ${(preco * qty).toFixed(2)}
@@ -120,21 +139,21 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   document.getElementById('lista-pedido').addEventListener('click', e => {
-    if (e.target.tagName !== 'BUTTON') return;
+    if (e.target.tagName !== 'BUTTON') return; //se nao for btn click nao tem/roda
     const action = e.target.dataset.action;
     const index  = parseInt(e.target.dataset.index);
     const grouped = groupItems();
     const item = grouped[index];
 
-    if (action === 'dec') {
+    if (action === 'dec') { //Procura o item e decrementa ele em tudo,nome,desc e obs
       const idx = orderItems.findIndex(i => i.nome === item.nome && i.obs === item.obs);
       if (idx > -1) {
-        orderItems.splice(idx, 1);
+        orderItems.splice(idx, 1); //so remove se tiver um item pelo menos
       }
-    } else if (action === 'inc') {
+    } else if (action === 'inc') { //adiciona o item como um todo,agrupando
       orderItems.push({ ...item });
     }
-    renderSummary();
+    renderSummary();  //exibe a lista atualizada
   });
 
   confirmBtn.addEventListener('click', () => {
@@ -147,15 +166,17 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   finalizeBtn.addEventListener('click', () => {
-    const nome     = document.getElementById('nome-cliente').value.trim();
-    const endereco = document.getElementById('endereco-cliente').value.trim();
-    const telefone = document.getElementById('telefone-cliente').value.trim();
+    const nome     = document.getElementById('nome-cliente').value.trim(); //.trim remove espaço aleatorio
+    const endereco = document.getElementById('endereco-cliente').value.trim(); //.trim remove espaço aleatorio
+    const telefone = document.getElementById('telefone-cliente').value.trim();  //.trim remove espaço aleatorio
 
     if (!nome || !endereco || !telefone) {
       alert('Preencha nome, endereço e telefone antes de finalizar o pedido.');
       return;
     }
 
+    //transforma em decimal pelo parsefloat
+    //encodeURIComponent deixa tudo mais simples e seguro para passar na URL
     const total = parseFloat(document.getElementById('total-pedido').textContent) || 0;
     const pedidoId = Math.floor(Math.random() * 900) + 100;
     const nomeCliente = encodeURIComponent(nome);
@@ -163,7 +184,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const telefoneCliente = encodeURIComponent(telefone);
 
     const params = `?order=${pedidoId}&total=${total.toFixed(2)}&nome=${nomeCliente}` +
-                   `&endereco=${endereco}&telefone=${telefone}`;
+                   `&endereco=${enderecoCliente}&telefone=${telefoneCliente}`;
 
     window.location.href = `pagamento.html${params}`;
 
