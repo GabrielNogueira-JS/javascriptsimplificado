@@ -30,7 +30,8 @@ document.addEventListener('DOMContentLoaded', () => {
     card.innerHTML = `
       <div class="card-left">
         <h3>${item.nome}</h3>
-        <p>${item.ingredients.join(", ")}</p>
+        <p>${item.descricao}</p>
+        <p>${item.observacao}</p>
         <p>R$ ${item.preco.toFixed(2)}</p>
       </div>
       <div class="card-right">
@@ -52,7 +53,8 @@ document.addEventListener('DOMContentLoaded', () => {
         <img src="${item.imagem}" alt="${item.nome}">
         <p>${item.descricao}</p>
         <p><strong>R$ ${item.preco.toFixed(2)}</strong></p>
-        <textarea id="obs-detail" rows="5" placeholder="Adicionais ou remoções"></textarea>
+        <p>${item.observacao}</p>
+        <textarea id="obs-detail" rows="5" style="width: 100%;" placeholder="Retirar alguma Coisa?"></textarea>
         <div>
           <button id="add-item">Adicionar</button>
           <button id="remove-item">Remover</button>
