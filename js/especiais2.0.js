@@ -121,11 +121,13 @@ document.addEventListener('DOMContentLoaded', () => {
           </div>
         </li>
       `;
+       // Se der NaN, força zero
+    if (isNaN(total)) total = 0;
+    totalEl.textContent = total.toFixed(2);
     });
 
-    totalEl.textContent = total.toFixed(2);
-    localStorage.setItem('pedido', JSON.stringify(orderItems));
-  }
+  localStorage.setItem('pedido', JSON.stringify(orderItems));
+}
 
   // Botões de incrementar/decrementar
   document.getElementById('lista-pedido').addEventListener('click', (e) => {

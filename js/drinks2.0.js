@@ -1,14 +1,21 @@
 document.addEventListener('DOMContentLoaded', () => {
-  // Elementos principais da página
   const menuContainer   = document.getElementById('menu');
   const detailView      = document.getElementById('detail-view');
   const summaryView     = document.getElementById('summary-view');
   const confirmBtn      = document.getElementById('confirmar-pedido');
   const closeSummaryBtn = document.getElementById('close-summary');
-  const finalizeBtn     = document.getElementById('botao-finalizar');
+  const finalizeBtn     = document.getElementById('finalizar-pedido');
 
-  // Array que guarda cada item adicionado
-   let orderItems = JSON.parse(localStorage.getItem('pedido')) || [];
+  let orderItems = JSON.parse(localStorage.getItem('pedido')) || [];
+
+  const summaryBox = summaryView.querySelector('.box.summary');
+  summaryBox.insertAdjacentHTML('beforeend', `
+    <div class="cliente-dados" style="margin: 1em 0;">
+      <input id="nome-cliente" type="text" placeholder="Seu nome" style="width: 100%; padding: .5em; margin-bottom: .5em;" />
+      <textarea id="endereco-cliente" rows="5" placeholder="Seu endereço" style="width: 100%; padding: .5em; margin-bottom: .5em;"></textarea>
+      <input id="telefone-cliente" type="tel" placeholder="Seu telefone" style="width: 100%; padding: .5em;" />
+    </div>
+  `);
 
   const drinks = [
     { nome: "🍍 Piña Colada", descricao: "Rum, leite de coco e suco de abacaxi gelado.", observacao: "👤 Serve uma pessoa.", preco: 20.00, imagem: "../imagens/pinacolada.png.png" },
@@ -20,10 +27,8 @@ document.addEventListener('DOMContentLoaded', () => {
     { nome: "🍊 Negroni", descricao: "Gin, vermute rosso e campari.", observacao: "👤 Serve uma pessoa.", preco: 25.00, imagem: "../imagens/negroni.png" },
     { nome: "🍅 Bloody Mary", descricao: "Vodka, suco de tomate, molho inglês, pimenta e suco de limão.", observacao: "👤 Serve uma pessoa.", preco: 23.00, imagem: "../imagens/bm.jpeg" },
     { nome: "🌴 Mai Tai", descricao: "Rum, licor de laranja, suco de limão e xarope de amêndoa.", observacao: "👤 Serve uma pessoa.", preco: 24.00, imagem: "../imagens/maitai.png" }
-];
+  ];
 
-
-  // Renderiza cards do menu
   drinks.forEach((item) => {
     const card = document.createElement('div');
     card.classList.add('card');
@@ -38,13 +43,10 @@ document.addEventListener('DOMContentLoaded', () => {
         <img src="${item.imagem}" alt="${item.nome}">
       </div>
     `;
-
-    // Ao clicar no card, abre o detalhe
     card.addEventListener('click', () => showDetail(item));
     menuContainer.appendChild(card);
   });
 
-  // Abre a modal de detalhe de item
   function showDetail(item) {
     detailView.innerHTML = `
       <div class="box">
@@ -62,13 +64,12 @@ document.addEventListener('DOMContentLoaded', () => {
       </div>
     `;
     detailView.classList.remove('hidden');
-    
+
     document.getElementById('close-detail').onclick = () => detailView.classList.add('hidden');
     document.getElementById('add-item').onclick = () => modifyOrder(item, 'add');
     document.getElementById('remove-item').onclick = () => modifyOrder(item, 'remove');
   }
 
-  // Adiciona ou remove do pedido
   function modifyOrder(item, action) {
     const obs = document.getElementById('obs-detail').value.trim() || item.observacao;
     if (action === 'add') orderItems.push({ ...item, obs });
@@ -80,7 +81,6 @@ document.addEventListener('DOMContentLoaded', () => {
     renderSummary();
   }
 
-  // Agrupa itens iguais e retorna array
   function groupItems() {
     const map = {};
     orderItems.forEach(i => {
@@ -91,7 +91,6 @@ document.addEventListener('DOMContentLoaded', () => {
     return Object.values(map);
   }
 
-  // Monta e exibe o resumo do pedido
   function renderSummary() {
     const listEl = document.getElementById('lista-pedido');
     const totalEl = document.getElementById('total-pedido');
@@ -111,11 +110,11 @@ document.addEventListener('DOMContentLoaded', () => {
       `;
     });
 
+    if (isNaN(total)) total = 0;
     totalEl.textContent = total.toFixed(2);
-     localStorage.setItem('pedido', JSON.stringify(orderItems));
+    localStorage.setItem('pedido', JSON.stringify(orderItems));
   }
 
-  // Delegação de eventos para os botões de + e - no resumo
   document.getElementById('lista-pedido').addEventListener('click', e => {
     if (e.target.tagName !== 'BUTTON') return;
     const { action, index } = e.target.dataset;
@@ -130,21 +129,28 @@ document.addEventListener('DOMContentLoaded', () => {
     renderSummary();
   });
 
-  // Abre modal de resumo
   confirmBtn.onclick = () => {
     renderSummary();
     summaryView.classList.remove('hidden');
   };
 
-  // Fecha modal de resumo
-  closeSummaryBtn.onclick = () => summaryView.classList.add('hidden');
+  closeSummaryBtn.onclick = () => {
+    summaryView.classList.add('hidden');
+    renderSummary();
+  };
   renderSummary();
 
-  // Finalizar pedido: imprime no console
-  document.getElementById('finalizar-pedido').addEventListener('click', () => {
-    const total = parseFloat(document.getElementById('total-pedido').textContent);
-    const pedidoId = String(Math.floor(Math.random() * 900) + 120); // ex: 123
-    window.location.href = `pagamento.html?order=${pedidoId}&total=${total.toFixed(2)}`;
-  });
-  });
+  document.getElementById('finalizar-pedido').onclick = () => {
+    const total       = parseFloat(document.getElementById('total-pedido').textContent) || 0;
+    const pedidoId    = Math.floor(Math.random() * 900) + 100;
+    const nomeCliente = document.getElementById('nome-cliente').value.trim();
+    const endereco    = document.getElementById('endereco-cliente').value.trim();
+    const telefone    = document.getElementById('telefone-cliente').value.trim();
 
+    const params = `?order=${pedidoId}&total=${total.toFixed(2)}&nome=${nomeCliente}` +
+                 `&endereco=${endereco}&telefone=${telefone}`;
+
+
+  window.location.href = `pagamento.html${params}`;
+  };
+});
