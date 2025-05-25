@@ -100,10 +100,12 @@ document.addEventListener('DOMContentLoaded', () => {
     let total = 0;
 
     groupItems().forEach((item, idx) => {
-      total += item.preco * item.qty;
+      const preco = Number(item.preco) || 0;
+      const qty = Number(item.qty) || 0;
+      total += preco * qty;
       listEl.innerHTML += `
         <li>
-          ${item.nome} x${item.qty} - R$ ${(item.preco * item.qty).toFixed(2)}
+          ${item.nome} x${qty} - R$ ${(preco * qty).toFixed(2)}
           <div>
             <button data-action="dec" data-index="${idx}">-</button>
             <button data-action="inc" data-index="${idx}">+</button>
