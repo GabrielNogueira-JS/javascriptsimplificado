@@ -156,18 +156,22 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
-    
+    const total = parseFloat(document.getElementById('total-pedido').textContent) || 0;
+    const pedidoId = Math.floor(Math.random() * 900) + 100;
+    const nomeCliente = encodeURIComponent(nome);
+    const enderecoCliente = encodeURIComponent(endereco);
+    const telefoneCliente = encodeURIComponent(telefone);
+
+    const params = `?order=${pedidoId}&total=${total.toFixed(2)}&nome=${nomeCliente}` +
+                   `&endereco=${endereco}&telefone=${telefone}`;
+
+    window.location.href = `pagamento.html${params}`;
+
     orderItems = [];
     localStorage.removeItem('pedido');
     renderSummary();
     summaryView.classList.add('hidden');
   });
-
-const params = `?order=${pedidoId}&total=${total.toFixed(2)}&nome=${nomeCliente}` +
-                   `&endereco=${endereco}&telefone=${telefone}`;
-
-    window.location.href = `pagamento.html${params}`;
-
 
   renderSummary();
 });
