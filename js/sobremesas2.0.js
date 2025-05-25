@@ -238,15 +238,10 @@ document.getElementById('botao-finalizar').onclick = () => {
     return;
   }
 
-  // Query string: order, total, nome, endereço e telefone
+  
   const params = `?order=${pedidoId}&total=${total.toFixed(2)}&nome=${nomeCliente}` +
                  `&endereco=${endereco}&telefone=${telefone}`;
 
-  // Redireciona e, na página de pagamento, use:
-  // const urlParams = new URLSearchParams(window.location.search);
-  // const nome  = urlParams.get('nome');
-  // const order = urlParams.get('order');
-  // document.getElementById('seu-nome').innerHTML = `<strong>${nome}</strong>`;
-  // document.getElementById('sua-comanda').innerHTML = `#<strong>${order}</strong>`;
+
   window.location.href = `pagamento.html${params}`;
 };
