@@ -156,12 +156,18 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
-    alert('Pedido finalizado! Obrigado, ' + nome + '');
+    
     orderItems = [];
     localStorage.removeItem('pedido');
     renderSummary();
     summaryView.classList.add('hidden');
   });
+
+const params = `?order=${pedidoId}&total=${total.toFixed(2)}&nome=${nomeCliente}` +
+                   `&endereco=${endereco}&telefone=${telefone}`;
+
+    window.location.href = `pagamento.html${params}`;
+
 
   renderSummary();
 });
