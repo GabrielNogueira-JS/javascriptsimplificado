@@ -9,6 +9,23 @@ document.addEventListener('DOMContentLoaded', () => {
 
   let orderItems = JSON.parse(localStorage.getItem('pedido')) || [];
 
+  const summaryBox = summaryView.querySelector('.box.summary');
+  summaryBox.insertAdjacentHTML('beforeend', `
+    <div class="cliente-dados" style="margin: 1em 0;">
+      <input id="nome-cliente" type="text" 
+             placeholder="Seu nome" 
+             style="width: 100%; padding: .5em; margin-bottom: .5em;" />
+
+      <textarea id="endereco-cliente" rows="5" 
+                placeholder="Seu endereço" 
+                style="width: 100%; padding: .5em; margin-bottom: .5em;"></textarea>
+
+      <input id="telefone-cliente" type="tel" 
+             placeholder="Seu telefone" 
+             style="width: 100%; padding: .5em;" />
+    </div>
+  `);
+
   const cardapio = [
     { name: "🥓X-Bacon",     ingredients: ["Pão", "Bacon", "Queijo", "Hambúrguer", "Maionese"], price: 15.90, imagem: "../imagens/bacon.png" },
     { name: "🥒X-Salada",    ingredients: ["Pão", "Queijo", "Hambúrguer", "Alface", "Tomate"], price: 13.50, imagem: "../imagens/salada.png" },
@@ -130,6 +147,7 @@ document.addEventListener('DOMContentLoaded', () => {
     renderSummary();
   });
 
+
   // Abre resumo
   confirmBtn.onclick = () => {
     renderSummary();
@@ -142,13 +160,33 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   // Finaliza pedido
-  finalizeBtn?.addEventListener('click', () => {
-    const total = parseFloat(document.getElementById('total-pedido').textContent);
-    const pedidoId = String(Math.floor(Math.random() * 900) + 130);
-    window.location.href = `pagamento.html?order=${pedidoId}&total=${total.toFixed(2)}`;
+  document.getElementById('botao-finalizar').onclick = () => {
+  const total          = parseFloat(document.getElementById('total-pedido').textContent) || 0;
+  const pedidoId       = Math.floor(Math.random() * 900) + 100;
+  const nomeCliente    = encodeURIComponent(document.getElementById('nome-cliente').value.trim() || 'Cliente');
+  const endereco       = encodeURIComponent(document.getElementById('endereco-cliente').value.trim());
+  const telefone       = encodeURIComponent(document.getElementById('telefone-cliente').value.trim());
+
+  if (total === 0) {
+    alert('Adicione um chakra ou sucumba!');
+    return;
+  }
+  if (!nomeCliente) {
+    alert('Informe seu nome antes de finalizar.');
+    return;
+  }
+
+  
+  const params = `?order=${pedidoId}&total=${total.toFixed(2)}&nome=${nomeCliente}` +
+                 `&endereco=${endereco}&telefone=${telefone}`;
+
+
+  window.location.href = `pagamento.html${params}`;
+};
+
   });
 
   // Carrega pedido salvo
   renderSummary();
   console.log("Pedido carregado:", orderItems);
-});
+;
