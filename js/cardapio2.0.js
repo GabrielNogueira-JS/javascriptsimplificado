@@ -15,15 +15,18 @@ document.addEventListener('DOMContentLoaded', () => {
     <div class="cliente-dados" style="margin: 1em 0;">
       <input id="nome-cliente" type="text" 
              placeholder="Seu nome" 
-             style="width: 100%; padding: .5em; margin-bottom: .5em;" />
+             style="width: 100%; padding: .5em; margin-bottom: .5em;" 
+             required />
 
       <textarea id="endereco-cliente" rows="5" 
                 placeholder="Seu endereço" 
-                style="width: 100%; padding: .5em; margin-bottom: .5em;"></textarea>
+                style="width: 100%; padding: .5em; margin-bottom: .5em;" 
+                required></textarea>
 
-      <input id="telefone-cliente" type="tel" 
-             placeholder="Seu telefone" 
-             style="width: 100%; padding: .5em;" />
+     <input id="telefone-cliente" type="tel" 
+           placeholder="Seu telefone" 
+           style="width: 100%; padding: .5em;" 
+           required />
     </div>
   `);
 
@@ -175,26 +178,48 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   // Finalizar pedido e redirecionar
-  document.getElementById('finalizar-pedido').onclick = () => {
-    const total          = parseFloat(document.getElementById('total-pedido').textContent) || 0;
-    const pedidoId       = Math.floor(Math.random() * 900) + 100;
-    const nomeCliente    = encodeURIComponent(document.getElementById('nome-cliente').value.trim() || 'Cliente');
-    const endereco       = encodeURIComponent(document.getElementById('endereco-cliente').value.trim());
-    const telefone       = encodeURIComponent(document.getElementById('telefone-cliente').value.trim());
+  document.getElementById('botao-finalizar').onclick = () => {
+    const nome     = document.getElementById('nome-cliente').value.trim();
+    const endereco = document.getElementById('endereco-cliente').value.trim();
+    const telefone = document.getElementById('telefone-cliente').value.trim();
 
+    const total = parseFloat(document.getElementById('total-pedido').textContent) || 0;
+
+    if (!nome || !endereco || !telefone) {
+      alert('Preencha todos os campos antes de finalizar o pedido.');
+      return;
+    }
     if (total === 0) {
-      alert('Adicione um chakra ou sucumba!');
+      alert('Adicione um Chackra ou Sucumba!');
       return;
     }
-    if (!nomeCliente) {
-      alert('Informe seu nome antes de finalizar.');
-      return;
-    }
+
+    const pedidoId = Math.floor(Math.random() * 900) + 100;
+    const nomeCliente = encodeURIComponent(nome);
+    const enderecoCliente = encodeURIComponent(endereco);
+    const telefoneCliente = encodeURIComponent(telefone);
+
+    // Monta array de itens agrupados, com nome, quantidade e observação (se houver)
+    const OrderItens = encodeURIComponent(
+      groupItems().map(item => {
+        let texto = `${item.name} x${item.qty}`;
+        if (item.obs) {
+          texto += ` (Obs: ${item.obs})`;
+        }
+        return texto;
+      }).join('; ')
+    );
 
     const params = `?order=${pedidoId}&total=${total.toFixed(2)}&nome=${nomeCliente}` +
-                   `&endereco=${endereco}&telefone=${telefone}`;
+                   `&endereco=${enderecoCliente}&telefone=${telefoneCliente}` +
+                   `&itens=${OrderItens}`;
 
     window.location.href = `pagamento.html${params}`;
+
+    orderItems = [];
+    localStorage.removeItem('pedido');
+    renderSummary();
+    summaryView.classList.add('hidden');
   };
 });
 

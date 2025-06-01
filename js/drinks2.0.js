@@ -11,11 +11,23 @@ document.addEventListener('DOMContentLoaded', () => {
   const summaryBox = summaryView.querySelector('.box.summary');
   summaryBox.insertAdjacentHTML('beforeend', `
     <div class="cliente-dados" style="margin: 1em 0;">
-      <input id="nome-cliente" type="text" placeholder="Seu nome" style="width: 100%; padding: .5em; margin-bottom: .5em;" />
-      <textarea id="endereco-cliente" rows="5" placeholder="Seu endereço" style="width: 100%; padding: .5em; margin-bottom: .5em;"></textarea>
-      <input id="telefone-cliente" type="tel" placeholder="Seu telefone" style="width: 100%; padding: .5em;" />
+      <input id="nome-cliente" type="text" 
+             placeholder="Seu nome" 
+             style="width: 100%; padding: .5em; margin-bottom: .5em;" 
+             required />
+
+      <textarea id="endereco-cliente" rows="5" 
+                placeholder="Seu endereço" 
+                style="width: 100%; padding: .5em; margin-bottom: .5em;" 
+                required></textarea>
+
+     <input id="telefone-cliente" type="tel" 
+           placeholder="Seu telefone" 
+           style="width: 100%; padding: .5em;" 
+           required />
     </div>
   `);
+
 
   const drinks = [
     { nome: "🍍 Piña Colada", descricao: "Rum, leite de coco e suco de abacaxi gelado.", observacao: "👤 Serve uma pessoa.", preco: 20.00, imagem: "../imagens/pinacolada.png.png" },
@@ -140,17 +152,46 @@ document.addEventListener('DOMContentLoaded', () => {
   };
   renderSummary();
 
-  document.getElementById('finalizar-pedido').onclick = () => {
-    const total       = parseFloat(document.getElementById('total-pedido').textContent) || 0;
-    const pedidoId    = Math.floor(Math.random() * 900) + 100;
-    const nomeCliente = document.getElementById('nome-cliente').value.trim();
-    const endereco    = document.getElementById('endereco-cliente').value.trim();
-    const telefone    = document.getElementById('telefone-cliente').value.trim();
+  finalizeBtn.addEventListener('click', () => {
+    const nome     = document.getElementById('nome-cliente').value.trim();
+    const endereco = document.getElementById('endereco-cliente').value.trim();
+    const telefone = document.getElementById('telefone-cliente').value.trim();
+
+    const total = parseFloat(document.getElementById('total-pedido').textContent) || 0;
+
+    if (!nome || !endereco || !telefone) {
+      alert('Preencha todos os campos antes de finalizar o pedido.');
+      return;
+    }
+    if (total === 0) {
+      alert('Adicione um Chackra ou Sucumba!');
+      return;
+    }
+
+    const pedidoId = Math.floor(Math.random() * 900) + 100;
+    const nomeCliente = encodeURIComponent(nome);
+    const enderecoCliente = encodeURIComponent(endereco);
+    const telefoneCliente = encodeURIComponent(telefone);
+
+    const OrderItens = encodeURIComponent(
+      groupItems().map(item => {
+        let texto = `${item.nome} x${item.qty}`;
+        if (item.obs && item.obs !== item.observacao) {
+          texto += ` (Obs: ${item.obs})`;
+        }
+        return texto;
+      }).join('; ')
+    );
 
     const params = `?order=${pedidoId}&total=${total.toFixed(2)}&nome=${nomeCliente}` +
-                 `&endereco=${endereco}&telefone=${telefone}`;
+                   `&endereco=${enderecoCliente}&telefone=${telefoneCliente}` +
+                   `&itens=${OrderItens}`;
 
+    window.location.href = `pagamento.html${params}`;
 
-  window.location.href = `pagamento.html${params}`;
-  };
+    orderItems = [];
+    localStorage.removeItem('pedido');
+    renderSummary();
+    summaryView.classList.add('hidden');
+  });
 });

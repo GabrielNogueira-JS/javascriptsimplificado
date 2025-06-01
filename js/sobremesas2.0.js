@@ -6,16 +6,28 @@ document.addEventListener('DOMContentLoaded', () => {
   const closeSummaryBtn  = document.getElementById('close-summary');
   const finalizeBtn      = document.getElementById('botao-finalizar');
 
-  let orderItems = JSON.parse(localStorage.getItem('pedido')) || [];
+  let orderItems = JSON.parse(localStorage.getItem('pedido_sobremesas')) || [];
 //adiciona parte de um html numa parte já escrita em cima/dentro do summaryView,modal de itens
   const summaryBox = summaryView.querySelector('.box.summary');
   summaryBox.insertAdjacentHTML('beforeend', `
-    <div class="cliente" style="margin: 1em 0;">
-      <input id="nome" type="text" placeholder="Seu nome" style="width: 100%; padding: .5em; margin-bottom: .5em;" />
-      <textarea id="endereco" rows="5" placeholder="Seu endereço" style="width: 100%; padding: .5em; margin-bottom: .5em;"></textarea>
-      <input id="telefone" type="tel" placeholder="Seu telefone" style="width: 100%; padding: .5em;" />
+    <div class="cliente-dados" style="margin: 1em 0;">
+      <input id="nome-cliente" type="text" 
+             placeholder="Seu nome" 
+             style="width: 100%; padding: .5em; margin-bottom: .5em;" 
+             required />
+
+      <textarea id="endereco-cliente" rows="5" 
+                placeholder="Seu endereço" 
+                style="width: 100%; padding: .5em; margin-bottom: .5em;" 
+                required></textarea>
+
+     <input id="telefone-cliente" type="tel" 
+           placeholder="Seu telefone" 
+           style="width: 100%; padding: .5em;" 
+           required />
     </div>
   `);
+
 
   const menu = [
     { nome: "🍰 Bolo de Chocolate – Chakra do Anoitecer", descricao: "Quatro fatias de bolo macio sabor chocolate com diamante negro, creme de leite, leite condensado e calda temperada.", observacao:"👤👤👤👤 Serve até quatro pessoas.", preco: 22.50, imagem: "../imagens/bolochocolate.png.png" },
@@ -86,7 +98,7 @@ document.addEventListener('DOMContentLoaded', () => {
 // Agrupa os itens por nome e observação, contando a quantidade de cada um
   // e retorna um array com os itens agrupados evitar duplicacao
   //map literalmente um mapa 
-  //const key = `${i.nome}|${i.obs}`;   junta osdois,o nome e a observacao
+  //const key = `${i.nome}|${i.obs}`;   junta osdois,o nome e a desc junta para nao ter repeticao duplicada
   //map[key] = { ...i, qty: 0 };         se nao existir,cria um novo com quantidade 0
   //map[key].qty++; essa chave se for um item
 
@@ -166,25 +178,40 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   finalizeBtn.addEventListener('click', () => {
-    const nome     = document.getElementById('nome-cliente').value.trim(); //.trim remove espaço aleatorio
-    const endereco = document.getElementById('endereco-cliente').value.trim(); //.trim remove espaço aleatorio
-    const telefone = document.getElementById('telefone-cliente').value.trim();  //.trim remove espaço aleatorio
+    const nome     = document.getElementById('nome-cliente').value.trim();
+    const endereco = document.getElementById('endereco-cliente').value.trim();
+    const telefone = document.getElementById('telefone-cliente').value.trim();
+
+    const total = parseFloat(document.getElementById('total-pedido').textContent) || 0;
 
     if (!nome || !endereco || !telefone) {
-      alert('Preencha nome, endereço e telefone antes de finalizar o pedido.');
+      alert('Preencha todos os campos antes de finalizar o pedido.');
+      return;
+    }
+    if (total === 0) {
+      alert('Adicione um Chackra ou Sucumba!');
       return;
     }
 
-    //transforma em decimal pelo parsefloat
-    //encodeURIComponent deixa tudo mais simples e seguro para passar na URL
-    const total = parseFloat(document.getElementById('total-pedido').textContent) || 0;
     const pedidoId = Math.floor(Math.random() * 900) + 100;
     const nomeCliente = encodeURIComponent(nome);
     const enderecoCliente = encodeURIComponent(endereco);
     const telefoneCliente = encodeURIComponent(telefone);
 
+    // Monta array de itens agrupados, com nome, quantidade e observação (se houver)
+    const OrderItens = encodeURIComponent(
+      groupItems().map(item => {
+        let texto = `${item.nome} x${item.qty}`;
+        if (item.obs && item.obs !== item.observacao) {
+          texto += ` (Obs: ${item.obs})`;
+        }
+        return texto;
+      }).join('; ')
+    );
+
     const params = `?order=${pedidoId}&total=${total.toFixed(2)}&nome=${nomeCliente}` +
-                   `&endereco=${enderecoCliente}&telefone=${telefoneCliente}`;
+                   `&endereco=${enderecoCliente}&telefone=${telefoneCliente}` +
+                   `&itens=${OrderItens}`;
 
     window.location.href = `pagamento.html${params}`;
 

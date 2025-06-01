@@ -1,4 +1,13 @@
-
+/* Padronização das imagens dos cards */
+.card-right img,
+.card img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 6px;
+  display: block;
+  margin: 0 auto;
+}
 * {
   margin: 0;
   padding: 0;
@@ -7,8 +16,8 @@
 html, body {
   height: 100vh;
   font-family: 'Bree Serif', serif;
-  background-color: #3865f7;
-  color: #61ff9e;
+  background: linear-gradient(135deg, #e3f0ff 0%, #b3c6f7 100%);
+  color: #0a2342;
   display: flex;
   flex-direction: column;
 }
@@ -16,7 +25,7 @@ html, body {
 /* ===== Header & Footer ===== */
 header, footer {
   width: 100%;
-  background-color: #2735fa;
+  background: linear-gradient(90deg, #3a7bd5 0%, #00d2ff 100%);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -31,7 +40,7 @@ footer {
   padding: 25px 0;
 }
 header .borda {
-  background-color: #6567f8;
+  background: linear-gradient(90deg, #5b86e5 0%, #36d1c4 100%);
   padding: 12px 24px;
   color: #fff;
   border-radius: 10px;
@@ -50,10 +59,10 @@ header .borda {
 
 /* ===== Container ===== */
 .container {
-  background-color: #fff;
-  border: 5px solid #1a1515;
+  background: linear-gradient(135deg, #f7fbff 0%, #d6eaff 100%);
+  border: 5px solid #3a7bd5;
   border-radius: 16px;
-  box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+  box-shadow: 0 8px 16px rgba(58, 123, 213, 0.10);
   width: 90%;
   max-width: 800px;
   padding: 30px 20px;
@@ -62,7 +71,7 @@ header .borda {
   align-items: center;
 }
 .container h2 {
-  color: #050505;
+  color: #2a5298;
   font-size: 1.8rem;
   margin-bottom: 20px;
   text-align: center;
@@ -97,12 +106,13 @@ header .borda {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  background: #fefefe;
+  background: linear-gradient(135deg, #e3f0ff 0%, #b3c6f7 100%);
   border-radius: 10px;
-  box-shadow: 0 2px 6px rgba(41, 41, 41, 0.1);
+  box-shadow: 0 2px 6px rgba(58, 123, 213, 0.10);
   padding: 12px;
   margin-bottom: 16px;
   width: 100%;
+  position: relative;
 }
 
 /* ===== Textos do card ===== */
@@ -110,7 +120,7 @@ header .borda {
   font-size: 1.1rem;
   font-weight: bold;
   margin-bottom: 8px;
-  color: #111;
+  color: #1a237e;
 }
 .desc {
   color: #0f0e0e;
@@ -131,15 +141,15 @@ header .borda {
   transition: max-height 0.3s ease-in-out;
 }
 .desc:hover {
-  color: #9ec2e9;
+  color: #5b86e5;
   text-decoration: underline;
 }
 
 /* ===== Observação ===== */
 .observacao {
   font-size: 0.85rem;
-  color: #000;
-  background-color: #fcf5f5;
+  color: #1a237e;
+  background-color: #e3f0ff;
   margin-bottom: 8px;
   padding: 4px 8px;
   border-radius: 6px;
@@ -147,8 +157,8 @@ header .borda {
 
 .obs-detail {
   font-size: 0.9rem;
-  color: #0b95ad;
-  background-color: #dbdbdb;
+  color: #3a7bd5;
+  background-color: #eaf6ff;
   padding: 8px;
   border-radius: 6px;
   margin-top: 10px;
@@ -156,14 +166,14 @@ header .borda {
 /* ===== Preço ===== */
 .price {
   font-size: 1.05rem;
-  color: #444;
+  color: #2a5298;
   font-weight: 600;
 }
 
 /* ===== Serve para (pessoas) ===== */
 .serve-info {
   font-size: 1rem;
-  color: #777777;
+  color: #5b86e5;
   font-weight: 500;
 }
 
@@ -173,23 +183,31 @@ header .borda {
   align-items: center;
   gap: 10px;
   margin-top: 5px;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 10;
+  background: rgba(255,255,255,0.8);
+  border-radius: 8px;
+  padding: 4px;
+  box-shadow: 0 2px 5px rgba(58, 123, 213, 0.10);
 }
 button.increment, button.decrement {
-  background-color: #148550;
+  background: linear-gradient(135deg, #5b86e5 0%, #36d1c4 100%);
   color: white;
   border: none;
   padding: 6px 10px;
   border-radius: 6px;
   cursor: pointer;
   font-size: 16px;
-  transition: background-color 0.3s ease;
+  transition: background 0.3s ease;
 }
 button.increment:hover, button.decrement:hover {
-  background-color: #f78d46;
+  background: linear-gradient(135deg, #36d1c4 0%, #5b86e5 100%);
 }
 button {
-  background: linear-gradient(135deg, #27ecf3, #32ee6a);
-  border: 2px solid #524d0f;
+  background: linear-gradient(135deg, #3a7bd5 0%, #00d2ff 100%);
+  border: 2px solid #5b86e5;
   border-radius: 8px;
   padding: 6px 12px;
   font-size: 1.2rem;
@@ -197,11 +215,11 @@ button {
   color: white;
   cursor: pointer;
   transition: border-color 0.3s ease, transform 0.2s ease, background 0.2s;
-  box-shadow: 0 2px 5px rgb(250, 248, 248);
+  box-shadow: 0 2px 5px rgba(58, 123, 213, 0.10);
 }
 button:hover {
-  border-color: #29b4cc;
-  background: #4e33c5dc;
+  border-color: #2a5298;
+  background: linear-gradient(135deg, #00d2ff 0%, #3a7bd5 100%);
   transform: scale(1.05);
 }
 
@@ -210,11 +228,11 @@ button:hover {
   margin-top: 30px;
   text-align: center;
   width: 100%;
-  background-color: #10cef0;
+  background: linear-gradient(90deg, #e3f0ff 0%, #b3c6f7 100%);
   border-radius: 20px;
   padding: 20px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-  border: 2px solid #1fc45e;
+  box-shadow: 0 4px 8px rgba(58,123,213,0.10);
+  border: 2px solid #5b86e5;
 }
 .footer-box p {
   font-size: 1.1rem;
@@ -226,14 +244,14 @@ button:hover {
 .resumo-pedido {
   text-align: center;
   margin-top: 20px;
-  color: #111;
+  color: #1a237e;
   font-size: 1.1rem;
 }
 
 /* ===== Botão Retornar ===== */
 #return-button {
-  background-color: #2c3e50;
-  color: #2c2a2c;
+  background: linear-gradient(90deg, #3a7bd5 0%, #00d2ff 100%);
+  color: #fff;
   border: none;
   border-radius: 8px;
   padding: 10px 20px;
@@ -243,7 +261,7 @@ button:hover {
   transition: background 0.3s;
 }
 #return-button:hover {
-  background-color: #68c035ec;
+  background: linear-gradient(90deg, #00d2ff 0%, #3a7bd5 100%);
 }
 
 /* ===== Modal de Detalhes ===== */
@@ -253,7 +271,7 @@ button:hover {
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: rgba(0,0,0,0.6);
+  background: rgba(58,123,213,0.15);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -264,12 +282,12 @@ button:hover {
   display: none;
 }
 #detail-view .box {
-  background: #fff;
+  background: #f7fbff;
   border-radius: 12px;
   max-width: 500px;
   width: 100%;
   padding: 20px;
-  box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+  box-shadow: 0 8px 16px rgba(58,123,213,0.15);
   position: relative;
 }
 #detail-view .close-hint {
@@ -304,14 +322,14 @@ button:hover {
 /* ===== Título Central ===== */
 .text-center {
   text-align: center;
-  color: #626dd3;
+  color: #3a7bd5;
   font-size: 1.5rem;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 2px;
   position: relative;
   padding: 20px;
-  text-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  text-shadow: 0 2px 5px rgba(58, 123, 213, 0.10);
 }
 .text-center::before {
   content: '';
@@ -320,17 +338,17 @@ button:hover {
   left: 0;
   width: 100%;
   height: 4px;
-  background: linear-gradient(to right, #ff8c94, #fc908b);
+  background: linear-gradient(to right, #3a7bd5, #00d2ff);
   border-radius: 2px;
   z-index: -1;
 }
 .text-center:hover {
-  color: #6665d1;
+  color: #2a5298;
   cursor: pointer;
   transition: color 0.3s ease-in-out;
 }
 .text-center:active {
-  background-color: rgba(255, 102, 139, 0.1);
+  background-color: rgba(58, 123, 213, 0.08);
   transition: background-color 0.2s ease-in-out;
 }
 
@@ -341,15 +359,15 @@ button:hover {
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-color: rgba(14, 14, 14, 0.6);
+  background-color: rgba(58,123,213,0.10);
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 1000;
 }
 #summary-view .box {
-  background-color: #ffffff;
-  padding: 3rem 2rem 2rem; /* >>> padding-top maior para empurrar o título */
+  background-color: #f7fbff;
+  padding: 3rem 2rem 2rem;
   border-radius: 10px;
   width: 90%;
   max-width: 400px;
@@ -391,22 +409,19 @@ button:hover {
 /* Espaço extra acima do título dentro de qualquer .modal */
 .modal h2,
 .modal .item-title {
-  margin-top: 3rem; /* >>> aumenta para ficar sempre abaixo do btn de fechar */
+  margin-top: 3rem;
 }
 
 /* Cards com botões absolutos */
-.card {
-  position: relative;
-}
 .card .buttons {
   position: absolute;
   top: 10px;
   right: 10px;
   z-index: 10;
-  background-color: rgba(255, 255, 255, 0.8);
+  background: rgba(255,255,255,0.8);
   border-radius: 8px;
   padding: 4px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  box-shadow: 0 2px 5px rgba(58,123,213,0.10);
 }
 
 /* Lista de itens simples */
@@ -419,8 +434,8 @@ button:hover {
 .item {
   display: flex;
   flex-direction: column;
-  background-color: #f5f5f5;
-  border: 1px solid #ddd;
+  background-color: #e3f0ff;
+  border: 1px solid #b3c6f7;
   border-radius: 5px;
   padding: 10px;
   position: relative;
@@ -429,7 +444,7 @@ button:hover {
   position: absolute;
   top: 10px;
   right: 10px;
-  background-color: #28c9f1;
+  background: linear-gradient(135deg, #3a7bd5 0%, #00d2ff 100%);
   color: white;
   border: none;
   padding: 5px 10px;
@@ -437,6 +452,6 @@ button:hover {
   cursor: pointer;
 }
 .item-nome {
-  margin-top: 30px; /* garante que fique abaixo do botão de remover */
+  margin-top: 30px;
   font-weight: bold;
 }

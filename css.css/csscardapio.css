@@ -87,11 +87,14 @@ header .borda {
   flex: 1;
   padding-right: 10px;
 }
-.card-right img {
+.card-right img,
+.card img {
   width: 100px;
-  height: 100px;
+  height: 60px;
   object-fit: cover;
   border-radius: 6px;
+  display: block;
+  margin: 0 auto;
 }
 .card {
   display: flex;
