@@ -147,7 +147,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (isNaN(total)) total = 0;
     totalEl.textContent = total.toFixed(2);
-    localStorage.setItem('pedido', JSON.stringify(orderItems));
+    localStorage.setItem('pedido_sobremesas', JSON.stringify(orderItems));
   }
 
   document.getElementById('lista-pedido').addEventListener('click', e => {
@@ -208,7 +208,7 @@ document.addEventListener('DOMContentLoaded', () => {
     window.location.href = `pagamento.html${params}`;
 
     orderItems = [];
-    localStorage.removeItem('pedido');
+    localStorage.removeItem('pedido_sobremesas');
     renderSummary();
     summaryView.classList.add('hidden');
   });

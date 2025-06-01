@@ -130,7 +130,7 @@ document.addEventListener('DOMContentLoaded', () => {
     totalEl.textContent = total.toFixed(2);
     });
 
-  localStorage.setItem('pedido', JSON.stringify(orderItems));
+  localStorage.setItem('pedido_especial', JSON.stringify(orderItems));
 }
 
   // Botões de incrementar/decrementar
@@ -204,7 +204,7 @@ document.addEventListener('DOMContentLoaded', () => {
     window.location.href = `pagamento.html${params}`;
 
     orderItems = [];
-    localStorage.removeItem('pedido');
+    localStorage.removeItem('pedido_especial');
     renderSummary();
     summaryView.classList.add('hidden');
 });
@@ -214,4 +214,3 @@ document.addEventListener('DOMContentLoaded', () => {
   // Carrega pedido salvo
   renderSummary();
   console.log("Pedido carregado:", orderItems);
-;

@@ -124,7 +124,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (isNaN(total)) total = 0;
     totalEl.textContent = total.toFixed(2);
-    localStorage.setItem('pedido', JSON.stringify(orderItems));
+    localStorage.setItem('pedido_drinks', JSON.stringify(orderItems));
   }
 
   document.getElementById('lista-pedido').addEventListener('click', e => {
