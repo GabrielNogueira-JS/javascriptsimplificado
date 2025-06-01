@@ -14,6 +14,7 @@ const telefone = params.get('telefone') || 'Não informado';
 const endereco = params.get('endereco') || 'Não informado';
 
 
+
 // Formata o valor para padrão PIX
 const total = formatarValorPIX(totalRaw);
 
