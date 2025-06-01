@@ -66,13 +66,14 @@ QRCode.toCanvas(document.getElementById('qrcode'), payloadPIX, { width: 256 }, f
 });
 
 document.addEventListener('DOMContentLoaded', () => {
-  // Tenta ler os itens do pedido de todas as possíveis chaves
+  const lista = document.getElementById('lista-itens');
+  // Tenta encontrar os itens do pedido em diferentes chaves
   const chaves = [
-    'orderItensPagamento',
-    'pedido_sobremesas',
-    'pedido_cardapio',
-    'pedido_drinks',
-    'pedido_especial'
+    'orderItensPagamento',        // padrão para pagamento
+    'pedido_cardapio',            // cardápio principal
+    'pedido_sobremesas',          // sobremesas
+    'pedido_drinks',              // drinks
+    'pedido_especiais'            // especiais
   ];
   let itens = [];
   for (const chave of chaves) {
@@ -89,7 +90,6 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // Exibe os itens na lista
-  const lista = document.getElementById('lista-itens');
   if (itens.length && lista) {
     itens.forEach(item => {
       let texto = `${item.nome || item.name} x${item.qty || 1}`;
