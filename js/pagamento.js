@@ -65,12 +65,33 @@ QRCode.toCanvas(document.getElementById('qrcode'), payloadPIX, { width: 256 }, f
 });
 
 document.addEventListener('DOMContentLoaded', () => {
-  // Lê os itens do pedido salvos no localStorage
-  const orderItens = JSON.parse(localStorage.getItem('orderItensPagamento') || '[]');
-  if (orderItens.length) {
-    const lista = document.createElement('ul');
-    orderItens.forEach(item => {
-      let texto = `${item.nome || item.name} x${item.qty}`;
+  // Tenta ler os itens do pedido de todas as possíveis chaves
+  const chaves = [
+    'orderItensPagamento',
+    'pedido_sobremesas',
+    'pedido_cardapio',
+    'pedido_drinks',
+    'pedido_especial'
+  ];
+  let itens = [];
+  for (const chave of chaves) {
+    const dados = localStorage.getItem(chave);
+    if (dados) {
+      try {
+        const arr = JSON.parse(dados);
+        if (Array.isArray(arr) && arr.length > 0) {
+          itens = arr;
+          break;
+        }
+      } catch {}
+    }
+  }
+
+  // Exibe os itens na lista
+  const lista = document.getElementById('lista-itens');
+  if (itens.length && lista) {
+    itens.forEach(item => {
+      let texto = `${item.nome || item.name} x${item.qty || 1}`;
       if (item.obs && item.obs !== item.observacao) {
         texto += ` (Obs: ${item.obs})`;
       }
@@ -78,7 +99,7 @@ document.addEventListener('DOMContentLoaded', () => {
       li.textContent = texto;
       lista.appendChild(li);
     });
-    // Insere a lista antes do QRCode ou onde preferir
-    document.body.insertBefore(lista, document.getElementById('qrcode'));
+  } else if (lista) {
+    lista.innerHTML = '<li>Nenhum item no pedido.</li>';
   }
 });
