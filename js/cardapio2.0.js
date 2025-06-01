@@ -147,7 +147,7 @@ document.addEventListener('DOMContentLoaded', () => {
     totalEl.textContent = total.toFixed(2);
 
     // Persistência
-    localStorage.setItem('pedido', JSON.stringify(orderItems));
+    localStorage.setItem('pedido_cardapio', JSON.stringify(orderItems));
   }
 
   // Delegação de eventos para os botões de + e - no resumo
