@@ -21,7 +21,7 @@
     <p>Endereço: <span id="endereco"></span></p>
   </div>
 
-  <p>Estabelecimento: Ninja Doce LTDA<br>CNPJ: 12.345.678/0001‑99</p>
+ 
 
   <p class="valor">Valor: R$ <span id="valor"></span></p>
 
@@ -42,6 +42,7 @@
     const nome = params.get('nome') || 'Cliente';
     const telefone = params.get('telefone') || 'Não informado';
     const endereco = params.get('endereco') || 'Não informado';
+
 
     // Formata o valor para padrão PIX
     const total = formatarValorPIX(totalRaw);
@@ -92,6 +93,28 @@
     QRCode.toCanvas(document.getElementById('qrcode'), payloadPIX, { width: 256 }, function(error) {
       if (error) console.error(error);
     });
+
+    // Itens do pedido
+    const orderItens = JSON.parse(localStorage.getItem('orderItensPagamento') || '[]');
+    if (orderItens.length) {
+      const lista = document.createElement('ul');
+      orderItens.forEach(item => {
+        let texto = `${item.nome || item.name} x${item.qty}`;
+        if (item.obs && item.obs !== item.observacao) {
+          texto += ` (Obs: ${item.obs})`;
+        }
+        const li = document.createElement('li');
+        li.textContent = texto;
+        lista.appendChild(li);
+      });
+      document.body.insertBefore(lista, document.getElementById('qrcode'));
+    }
   </script>
 </body>
+
+<footer>
+   <p>Estabelecimento: Ninja Doce LTDA<br></p>
+   <h5>CNPJ: 12.345.678/0001‑99</h5>
+</footer>
+
 </html>
