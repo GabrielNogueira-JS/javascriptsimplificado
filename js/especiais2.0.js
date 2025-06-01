@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const closeSummaryBtn = document.getElementById('close-summary');
   const finalizeBtn     = document.getElementById('finalizar-pedido');
 
-  let orderItems = JSON.parse(localStorage.getItem('pedido')) || [];
+  let orderItems = JSON.parse(localStorage.getItem('pedido_especial')) || [];
 
   const summaryBox = summaryView.querySelector('.box.summary');
   summaryBox.insertAdjacentHTML('beforeend', `

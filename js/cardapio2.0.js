@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const finalizeBtn     = document.getElementById('botao-finalizar');
 
   // Array que guarda cada item adicionado
-  let orderItems = JSON.parse(localStorage.getItem('pedido')) || [];
+  let orderItems = JSON.parse(localStorage.getItem('pedido_cardapio')) || [];
 
   const summaryBox = summaryView.querySelector('.box.summary');
   summaryBox.insertAdjacentHTML('beforeend', `
@@ -178,7 +178,7 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   // Finalizar pedido e redirecionar
-  document.getElementById('botao-finalizar').onclick = () => {
+  document.getElementById('finalizar-pedido').onclick = () => {
     const nome     = document.getElementById('nome-cliente').value.trim();
     const endereco = document.getElementById('endereco-cliente').value.trim();
     const telefone = document.getElementById('telefone-cliente').value.trim();
@@ -217,7 +217,7 @@ document.addEventListener('DOMContentLoaded', () => {
     window.location.href = `pagamento.html${params}`;
 
     orderItems = [];
-    localStorage.removeItem('pedido');
+    localStorage.removeItem('pedido_cardapio');
     renderSummary();
     summaryView.classList.add('hidden');
   };

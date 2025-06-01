@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const closeSummaryBtn = document.getElementById('close-summary');
   const finalizeBtn     = document.getElementById('finalizar-pedido');
 
-  let orderItems = JSON.parse(localStorage.getItem('pedido')) || [];
+  let orderItems = JSON.parse(localStorage.getItem('pedido_drinks')) || [];
 
   const summaryBox = summaryView.querySelector('.box.summary');
   summaryBox.insertAdjacentHTML('beforeend', `
@@ -190,7 +190,7 @@ document.addEventListener('DOMContentLoaded', () => {
     window.location.href = `pagamento.html${params}`;
 
     orderItems = [];
-    localStorage.removeItem('pedido');
+    localStorage.removeItem('pedido_drinks');
     renderSummary();
     summaryView.classList.add('hidden');
   });
