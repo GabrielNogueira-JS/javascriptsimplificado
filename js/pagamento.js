@@ -30,6 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const lista = document.getElementById('lista-itens');
   // Tenta encontrar os itens do pedido em diferentes chaves
   const chaves = [
+    'orderItensPagamento',        // <-- adicione esta linha!
     'pedido_cardapio',            
     'pedido_sobremesas',         
     'pedido_drinks',             
@@ -62,5 +63,27 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   } else if (lista) {
     lista.innerHTML = '<li>Nenhum item no pedido.</li>';
+  }
+
+  // Exibe os itens na tabela
+  const tabela = document.getElementById('tabela-itens').querySelector('tbody');
+  if (itens.length && tabela) {
+    tabela.innerHTML = '';
+    itens.forEach(item => {
+      const nome = item.nome || item.name;
+      const qtd = item.qty || 1;
+      const preco = item.preco || item.price || 0;
+      const subtotal = (preco * qtd).toFixed(2);
+      const obs = item.obs && item.obs !== item.observacao ? `<br><small>Obs: ${item.obs}</small>` : '';
+      tabela.innerHTML += `
+        <tr>
+          <td>${nome}${obs}</td>
+          <td style="text-align:center;">${qtd}</td>
+          <td style="text-align:right;">R$ ${subtotal}</td>
+        </tr>
+      `;
+    });
+  } else if (tabela) {
+    tabela.innerHTML = '<tr><td colspan="3">Nenhum item no pedido.</td></tr>';
   }
 });
