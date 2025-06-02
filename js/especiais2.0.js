@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const summaryView     = document.getElementById('summary-view');
   const confirmBtn      = document.getElementById('confirmar-pedido');
   const closeSummaryBtn = document.getElementById('close-summary');
-  const finalizeBtn     = document.getElementById('finalizar-pedido');
+  const finalizeBtn     = document.getElementById('botao-finalizar');
 
   let orderItems = JSON.parse(localStorage.getItem('pedido_especial')) || [];
 
@@ -125,13 +125,12 @@ document.addEventListener('DOMContentLoaded', () => {
           </div>
         </li>
       `;
-       // Se der NaN, força zero
+    });
     if (isNaN(total)) total = 0;
     totalEl.textContent = total.toFixed(2);
-    });
 
-  localStorage.setItem('pedido_especial', JSON.stringify(orderItems));
-}
+    localStorage.setItem('pedido_especial', JSON.stringify(orderItems));
+  }
 
   // Botões de incrementar/decrementar
   document.getElementById('lista-pedido').addEventListener('click', (e) => {
@@ -187,19 +186,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const enderecoCliente = encodeURIComponent(endereco);
     const telefoneCliente = encodeURIComponent(telefone);
 
-    const OrderItens = encodeURIComponent(
-      groupItems().map(item => {
-        let texto = `${item.name} x${item.qty}`;
-        if (item.obs) {
-          texto += ` (Obs: ${item.obs})`;
-        }
-        return texto;
-      }).join('; ')
-    );
+    // Salva os itens agrupados no localStorage para a página de pagamento
+    const orderItens = groupItems();
+    localStorage.setItem('orderItensPagamento', JSON.stringify(orderItens));
 
     const params = `?order=${pedidoId}&total=${total.toFixed(2)}&nome=${nomeCliente}` +
-                   `&endereco=${enderecoCliente}&telefone=${telefoneCliente}` +
-                   `&itens=${OrderItens}`;
+                   `&endereco=${enderecoCliente}&telefone=${telefoneCliente}`;
 
     window.location.href = `pagamento.html${params}`;
 
@@ -209,8 +201,7 @@ document.addEventListener('DOMContentLoaded', () => {
     summaryView.classList.add('hidden');
 });
 
-  });
-
   // Carrega pedido salvo
   renderSummary();
   console.log("Pedido carregado:", orderItems);
+});
