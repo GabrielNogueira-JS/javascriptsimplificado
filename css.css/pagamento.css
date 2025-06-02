@@ -1,0 +1,157 @@
+/* ===== Reset & Base ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+html, body {
+  min-height: 100vh;
+  font-family: 'Segoe UI', 'Arial', sans-serif;
+  background: linear-gradient(135deg, #e8f5e9 0%, #b9f6ca 100%);
+  color: #1b5e20;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ===== Header ===== */
+h1 {
+  text-align: center;
+  margin: 2rem 0 1rem 0;
+  color: #388e3c;
+  font-size: 2.2rem;
+  letter-spacing: 1px;
+  text-shadow: 0 2px 8px #c8e6c9;
+}
+
+/* ===== Cliente Info ===== */
+.cliente-info {
+  background: linear-gradient(90deg, #a5d6a7 0%, #e0f2f1 100%);
+  border-radius: 12px;
+  padding: 1.2rem 2rem;
+  margin: 0 auto 1.5rem auto;
+  max-width: 500px;
+  box-shadow: 0 2px 8px rgba(56, 142, 60, 0.08);
+  font-size: 1.1rem;
+}
+.cliente-info p {
+  margin-bottom: 0.5rem;
+  color: #2e7d32;
+}
+
+/* ===== Valor ===== */
+.valor {
+  text-align: center;
+  font-size: 1.5rem;
+  color: #2e7d32;
+  font-weight: bold;
+  margin-bottom: 1.5rem;
+}
+
+/* ===== Caixa do Resumo do Pedido ===== */
+#resumo-pedido {
+  background: linear-gradient(135deg, #c8e6c9 0%, #a5d6a7 100%);
+  border-radius: 18px;
+  box-shadow: 0 4px 16px rgba(56, 142, 60, 0.13);
+  max-width: 800px;
+  margin: 2rem auto 2rem auto;
+  padding: 2rem 1.5rem 1.5rem 1.5rem;
+  border: 2px solid #388e3c;
+}
+
+#resumo-pedido h2 {
+  color: #1b5e20;
+  text-align: center;
+  margin-bottom: 1.2rem;
+  letter-spacing: 1px;
+}
+
+/* ===== Tabela de Itens ===== */
+#tabela-itens {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(56, 142, 60, 0.07);
+  margin-bottom: 1rem;
+}
+
+#tabela-itens th, #tabela-itens td {
+  padding: 0.9rem 0.7rem;
+  border-bottom: 1px solid #c8e6c9;
+}
+
+#tabela-itens th {
+  background: linear-gradient(90deg, #66bb6a 0%, #a5d6a7 100%);
+  color: #fff;
+  font-size: 1.1rem;
+  text-align: left;
+  letter-spacing: 1px;
+}
+
+#tabela-itens td {
+  color: #388e3c;
+  font-size: 1.05rem;
+  vertical-align: top;
+}
+
+#tabela-itens tr:last-child td {
+  border-bottom: none;
+}
+
+#tabela-itens td.obs {
+  color: #6d4c1b;
+  font-size: 0.98rem;
+  font-style: italic;
+}
+
+#tabela-itens td.valor {
+  text-align: right;
+  font-weight: bold;
+  color: #1b5e20;
+}
+
+/* ===== QRCode ===== */
+#qrcode {
+  display: flex;
+  justify-content: center;
+  margin: 2rem 0 1rem 0;
+}
+
+/* ===== Lista de Itens (fallback) ===== */
+#lista-itens {
+  display: none;
+}
+
+/* ===== Footer ===== */
+footer.footer {
+  background: linear-gradient(90deg, #388e3c 0%, #81c784 100%);
+  color: #fff;
+  text-align: center;
+  padding: 1.2rem 0 1.5rem 0;
+  font-size: 1.1rem;
+  margin-top: auto;
+  letter-spacing: 1px;
+  border-top-left-radius: 18px;
+  border-top-right-radius: 18px;
+  box-shadow: 0 -2px 8px rgba(56, 142, 60, 0.10);
+}
+
+footer.footer p {
+  margin: 0.3rem 0;
+}
+
+/* ===== Responsivo ===== */
+@media (max-width: 700px) {
+  #resumo-pedido {
+    padding: 1rem 0.3rem;
+  }
+  .cliente-info {
+    padding: 1rem 0.5rem;
+  }
+  #tabela-itens th, #tabela-itens td {
+    padding: 0.6rem 0.3rem;
+    font-size: 0.98rem;
+  }
+}
