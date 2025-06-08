@@ -17,7 +17,7 @@ html, body {
 h1 {
   text-align: center;
   margin: 2rem 0 1rem 0;
-  color: #388e3c;
+  color: #080808;
   font-size: 2.2rem;
   letter-spacing: 1px;
   text-shadow: 0 2px 8px #c8e6c9;
@@ -35,14 +35,14 @@ h1 {
 }
 .cliente-info p {
   margin-bottom: 0.5rem;
-  color: #2e7d32;
+  color: #070707;
 }
 
 /* ===== Valor ===== */
 .valor {
   text-align: center;
   font-size: 1.5rem;
-  color: #2e7d32;
+  color: #0c0c0c;
   font-weight: bold;
   margin-bottom: 1.5rem;
 }
@@ -55,7 +55,7 @@ h1 {
   max-width: 800px;
   margin: 2rem auto 2rem auto;
   padding: 2rem 1.5rem 1.5rem 1.5rem;
-  border: 2px solid #388e3c;
+  border: 2px solid #0c0c0c;
 }
 
 #resumo-pedido h2 {
@@ -101,7 +101,7 @@ h1 {
 }
 
 #tabela-itens td.obs {
-  color: #6d4c1b;
+  color: #52fcac;
   font-size: 0.98rem;
   font-style: italic;
 }
@@ -126,7 +126,7 @@ h1 {
 
 /* ===== Footer ===== */
 footer.footer {
-  background: linear-gradient(90deg, #388e3c 0%, #81c784 100%);
+  background: linear-gradient(90deg, #7dfd83 0%, #47df4f 100%);
   color: #fff;
   text-align: center;
   padding: 1.2rem 0 1.5rem 0;
@@ -154,4 +154,19 @@ footer.footer p {
     padding: 0.6rem 0.3rem;
     font-size: 0.98rem;
   }
+}
+.btn-voltar {
+  background: transparent;
+  border: 2px solid #97f106;
+  color: #080808;
+  font-size: 1rem;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.btn-voltar:hover {
+  background: #b2f878;
+  color: #fff;
 }

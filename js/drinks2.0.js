@@ -173,19 +173,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const enderecoCliente = encodeURIComponent(endereco);
     const telefoneCliente = encodeURIComponent(telefone);
 
-    const OrderItens = encodeURIComponent(
-      groupItems().map(item => {
-        let texto = `${item.nome} x${item.qty}`;
-        if (item.obs && item.obs !== item.observacao) {
-          texto += ` (Obs: ${item.obs})`;
-        }
-        return texto;
-      }).join('; ')
-    );
+    // Salva os itens agrupados no localStorage para a página de pagamento
+    const orderItens = groupItems();
+    localStorage.setItem('orderItensPagamento', JSON.stringify(orderItens));
 
     const params = `?order=${pedidoId}&total=${total.toFixed(2)}&nome=${nomeCliente}` +
-                   `&endereco=${enderecoCliente}&telefone=${telefoneCliente}` +
-                   `&itens=${OrderItens}`;
+                   `&endereco=${enderecoCliente}&telefone=${telefoneCliente}`;
 
     window.location.href = `pagamento.html${params}`;
 
