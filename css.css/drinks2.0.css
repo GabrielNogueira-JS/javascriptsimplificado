@@ -16,7 +16,7 @@
 html, body {
   height: 100vh;
   font-family: 'Bree Serif', serif;
-  background: linear-gradient(135deg, #90a7c2 0%, #a2baf8 100%);
+  background: #5b86e5;
   color: #0a2342;
   display: flex;
   flex-direction: column;
@@ -59,7 +59,7 @@ header .borda {
 
 /* ===== Container ===== */
 .container {
-  background: linear-gradient(135deg, #f7fbff 0%, #d6eaff 100%);
+  background: linear-gradient(135deg, #9bcbfc 0%, #88bef7 100%);
   border: 5px solid #3a7bd5;
   border-radius: 16px;
   box-shadow: 0 8px 16px rgba(58, 123, 213, 0.10);
@@ -81,6 +81,7 @@ header .borda {
 .desserts-container {
   display: flex;
   width: 100%;
+  /* Ajusta o espaço entre os cards */
   gap: 30px;
 }
 .left-column, .right-column {
@@ -99,14 +100,16 @@ header .borda {
 .card-right img {
   width: 100px;
   height: 100px;
+  /* Tem cover, contain e fill, depender da ocasião a img fica distorcida */
   object-fit: cover;
   border-radius: 6px;
 }
 .card {
+  /* Define as posições na página,tendo block,inline,flex,grid,none  */
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  background: linear-gradient(135deg, #e3f0ff 0%, #b3c6f7 100%);
+  background: linear-gradient(135deg, #c0dbfa 0%, #b3c6f7 100%);
   border-radius: 10px;
   box-shadow: 0 2px 6px rgba(58, 123, 213, 0.10);
   padding: 12px;
@@ -193,7 +196,8 @@ header .borda {
   box-shadow: 0 2px 5px rgba(58, 123, 213, 0.10);
 }
 button.increment, button.decrement {
-  background: linear-gradient(135deg, #5b86e5 0%, #36d1c4 100%);
+  background: #36d1c4;
+  box-shadow: #2a5298;
   color: white;
   border: none;
   padding: 6px 10px;
