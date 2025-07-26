@@ -25,7 +25,7 @@ html, body {
 /* ===== Header & Footer ===== */
 header, footer {
   width: 100%;
-  background: linear-gradient(90deg, #3a7bd5 0%, #3a7bd3 100%);
+  background: linear-gradient(90deg, #5b9cf7 0%, #589af7 100%);
   display: flex;
   align-items: center;
   justify-content: center;
